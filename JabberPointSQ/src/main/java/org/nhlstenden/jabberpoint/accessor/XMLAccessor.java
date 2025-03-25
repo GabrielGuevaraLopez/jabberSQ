@@ -12,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.nhlstenden.jabberpoint.Presentation;
 import org.nhlstenden.jabberpoint.slide.Slide;
+import org.nhlstenden.jabberpoint.slide.item.BitmapItem;
 import org.nhlstenden.jabberpoint.slide.item.SlideItem;
 import org.nhlstenden.jabberpoint.slide.item.TextItem;
 import org.xml.sax.SAXException;
