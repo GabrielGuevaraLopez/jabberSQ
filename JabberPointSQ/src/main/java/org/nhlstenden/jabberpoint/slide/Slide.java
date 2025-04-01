@@ -1,10 +1,11 @@
 package org.nhlstenden.jabberpoint.slide;
 
+import org.nhlstenden.jabberpoint.decorator.Style;
+import org.nhlstenden.jabberpoint.decorator.StyleComponent;
 import org.nhlstenden.jabberpoint.slide.item.SlideItem;
 import org.nhlstenden.jabberpoint.slide.item.TextItem;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.util.Vector;
 
@@ -63,18 +64,34 @@ public class Slide {
         return items.size();
     }
 
+    private StyleComponent createStyle(int level) {
+        // Create different styles based on level
+        switch (level) {
+            case 0: // Title style
+                return new Style(0, Color.BLACK, 48, 20);
+            case 1: // Main point style
+                return new Style(20, Color.RED, 36, 10);
+            case 2: // Sub point style
+                return new Style(40, Color.BLUE, 30, 10);
+            case 3: // Sub-sub point style
+                return new Style(60, Color.BLACK, 24, 10);
+            default: // Default style
+                return new Style(60, Color.BLACK, 20, 10);
+        }
+    }
+
     // draw the slide
     public void draw(Graphics g, Rectangle area, ImageObserver view) {
         float scale = getScale(area);
         int y = area.y;
         // Title is handled separately
         SlideItem slideItem = new TextItem(0, getTitle());
-        Style style = Style.getStyle(slideItem.getLevel());
+        StyleComponent style = createStyle(slideItem.getLevel());
         slideItem.draw(area.x, y, scale, g, style, view);
         y += slideItem.getBoundingBox(g, view, scale, style).height;
         for (int number=0; number<getSize(); number++) {
             slideItem = (SlideItem)getSlideItems().elementAt(number);
-            style = Style.getStyle(slideItem.getLevel());
+            style = createStyle(slideItem.getLevel());
             slideItem.draw(area.x, y, scale, g, style, view);
             y += slideItem.getBoundingBox(g, view, scale, style).height;
         }
