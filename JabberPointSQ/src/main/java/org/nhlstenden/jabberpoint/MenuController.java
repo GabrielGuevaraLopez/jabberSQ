@@ -1,14 +1,9 @@
 package org.nhlstenden.jabberpoint;
 
-import org.nhlstenden.jabberpoint.accessor.Accessor;
-import org.nhlstenden.jabberpoint.accessor.XMLAccessor;
 import org.nhlstenden.jabberpoint.command.*;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 /** <p>The controller for the menu</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
@@ -31,11 +26,11 @@ public class MenuController extends MenuBar {
         this.parent = frame;
         this.presentation = presentation;
 
-        ExitCommand exitCommand = new ExitCommand(this.presentation);
-        GoToCommand goToCommand = new GoToCommand(this.presentation);
-        OpenFileCommand openFileCommand = new OpenFileCommand(this.presentation);
-        SaveFileCommand saveFileCommand = new SaveFileCommand(this.presentation);
-        NewFileCommand newFileCommand = new NewFileCommand(this.presentation);
+        Exit exitCommand = new Exit(this.presentation);
+        GoTo goToCommand = new GoTo(this.presentation);
+        Open openFileCommand = new Open(this.presentation);
+        Save saveFileCommand = new Save(this.presentation);
+        NewFile newFileCommand = new NewFile(this.presentation);
 
         Menu fileMenu = new Menu("File");
         fileMenu.add(this.createMenuItem("Open", e -> openFileCommand.execute(), 'O'));

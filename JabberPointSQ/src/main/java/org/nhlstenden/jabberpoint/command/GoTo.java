@@ -6,17 +6,15 @@ import org.nhlstenden.jabberpoint.util.Constants;
 
 import javax.swing.*;
 
-public class GoToCommand implements Command{
-    private final Presentation presentation;
+public class GoTo extends Command {
 
-    public GoToCommand(Presentation presentation)
-    {
-        this.presentation = presentation;
+    public GoTo(PresentationReceiver presentationReceiver) {
+        super(presentationReceiver);
     }
 
     @Override
     public void execute() {
-        SlideViewerComponent parent = this.presentation.getParent();
+        SlideViewerComponent parent = this.presentationReceiver.getParent();
         String pageNumberStr = JOptionPane.showInputDialog("Page number?");
         int pageNumber = 0;
 
@@ -34,6 +32,6 @@ public class GoToCommand implements Command{
             return;
         }
 
-        this.presentation.setSlideNumber(pageNumber - 1);
+        this.presentationReceiver.setSlideNumber(pageNumber - 1);
     }
 }

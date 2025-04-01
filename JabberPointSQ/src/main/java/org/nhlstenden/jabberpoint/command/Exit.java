@@ -2,12 +2,11 @@ package org.nhlstenden.jabberpoint.command;
 
 import org.nhlstenden.jabberpoint.Presentation;
 
-public class ExitCommand implements Command{
-    private final Presentation presentation;
+public class Exit extends Command{
 
-    public ExitCommand(Presentation presentation)
+    public Exit(PresentationReceiver presentationReceiver)
     {
-        this.presentation = presentation;
+        super(presentationReceiver);
     }
 
     @Override

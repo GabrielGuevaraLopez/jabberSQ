@@ -1,8 +1,10 @@
 package org.nhlstenden.jabberpoint;
 
+import org.nhlstenden.jabberpoint.command.PresentationReceiver;
 import org.nhlstenden.jabberpoint.slide.Slide;
 import org.nhlstenden.jabberpoint.slide.SlideViewerComponent;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -17,7 +19,8 @@ import java.util.ArrayList;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 
-public class Presentation {
+public class Presentation implements PresentationReceiver
+{
     private String showTitle;
     private ArrayList<Slide> showList = null;
     private int currentSlideNumber = 0;
@@ -58,7 +61,6 @@ public class Presentation {
         return this.currentSlideNumber;
     }
 
-    // change the current slide number and signal it to the window
     public void setSlideNumber(int number) {
         if (number < 0 || number > (this.showList.size() - 1)) {
             return;
@@ -105,5 +107,47 @@ public class Presentation {
     // Give the current slide
     public Slide getCurrentSlide() {
         return this.getSlide(this.currentSlideNumber);
+    }
+
+    @Override
+    public void open()
+    {
+
+    }
+
+    @Override
+    public void save()
+    {
+
+    }
+
+    @Override
+    public void goTo(int slideNumber) {
+        this.setSlideNumber(slideNumber);
+    }
+
+    @Override
+    public void next() {
+        this.nextSlide();
+    }
+
+    @Override
+    public void previous() {
+        this.prevSlide();
+    }
+
+    @Override
+    public void newFile() {
+        this.clear();
+    }
+
+    @Override
+    public void exit() {
+        System.exit(0);
+    }
+
+    @Override
+    public void help() {
+        JOptionPane.showMessageDialog(null, "Help is not yet implemented.");
     }
 }
