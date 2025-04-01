@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="de184573-8fc7-45bf-8be9-e8a0b868dde8" name="Changes" comment="" />
+    <list default="true" id="de184573-8fc7-45bf-8be9-e8a0b868dde8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JabberPointSQ/src/main/java/org/nhlstenden/jabberpoint/accessor/XMLAccessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/JabberPointSQ/src/main/java/org/nhlstenden/jabberpoint/accessor/XMLAccessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JabberPointSQ/src/main/java/org/nhlstenden/jabberpoint/slide/Slide.java" beforeDir="false" afterPath="$PROJECT_DIR$/JabberPointSQ/src/main/java/org/nhlstenden/jabberpoint/slide/Slide.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,7 +25,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Builder&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Java&quot;,
@@ -63,6 +67,8 @@
       <workItem from="1742910217390" duration="256000" />
       <workItem from="1742911836092" duration="52000" />
       <workItem from="1743502677457" duration="14000" />
+      <workItem from="1743525519368" duration="7000" />
+      <workItem from="1743525531868" duration="19000" />
     </task>
     <servers />
   </component>
