@@ -1,6 +1,5 @@
 package org.nhlstenden.jabberpoint.command;
 
-
 public class Exit extends Command{
 
     public Exit(PresentationReceiver presentationReceiver)

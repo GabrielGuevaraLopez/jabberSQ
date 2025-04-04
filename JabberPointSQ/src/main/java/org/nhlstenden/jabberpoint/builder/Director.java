@@ -1,6 +1,5 @@
 package org.nhlstenden.jabberpoint.builder;
 
-
 import org.nhlstenden.jabberpoint.slide.BaseSlide;
 import org.nhlstenden.jabberpoint.slide.item.SlideItem;
 

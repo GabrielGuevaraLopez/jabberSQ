@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.awt.event.KeyEvent;
-import java.awt.Frame;
 import javax.swing.JFrame;
 
 class KeyControllerTest {
