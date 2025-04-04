@@ -1,6 +1,5 @@
 package org.nhlstenden.jabberpoint.command;
 
-import org.nhlstenden.jabberpoint.Presentation;
 import org.nhlstenden.jabberpoint.slide.SlideViewerComponent;
 import org.nhlstenden.jabberpoint.util.Constants;
 

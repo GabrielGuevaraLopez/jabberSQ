@@ -56,7 +56,6 @@ public class Presentation implements PresentationReceiver
         this.slideViewComponent = slideViewerComponent;
     }
 
-    // give the number of the current slide
     public int getSlideNumber() {
         return this.currentSlideNumber;
     }
@@ -75,28 +74,23 @@ public class Presentation implements PresentationReceiver
         this.slideViewComponent.update(this, this.getCurrentSlide());
     }
 
-    // go to the previous slide unless your at the beginning of the presentation
     public void prevSlide() {
         this.setSlideNumber(this.currentSlideNumber - 1);
     }
 
-    // go to the next slide unless your at the end of the presentation.
     public void nextSlide() {
         this.setSlideNumber(this.currentSlideNumber + 1);
     }
 
-    // Delete the presentation to be ready for the next one.
     public void clear() {
         this.showList = new ArrayList<>();
         this.setSlideNumber(-1);
     }
 
-    // Add a slide to the presentation
     public void append(Slide slide) {
         this.showList.add(slide);
     }
 
-    // Get a slide with a certain slide number
     public Slide getSlide(int number) {
         if (number < 0 || number >= this.getSize()) {
             return null;
@@ -104,21 +98,16 @@ public class Presentation implements PresentationReceiver
         return this.showList.get(number);
     }
 
-    // Give the current slide
     public Slide getCurrentSlide() {
         return this.getSlide(this.currentSlideNumber);
     }
 
     @Override
-    public void open()
-    {
-
+    public void open() {
     }
 
     @Override
-    public void save()
-    {
-
+    public void save() {
     }
 
     @Override

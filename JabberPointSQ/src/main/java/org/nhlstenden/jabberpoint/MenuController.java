@@ -17,8 +17,8 @@ import java.awt.event.ActionListener;
 
 public class MenuController extends MenuBar {
 
-    private final Frame parent; // the frame, only used as parent for the Dialogs
-    private final Presentation presentation; // Commands are given to the presentation
+    private final Frame parent;
+    private final Presentation presentation;
 
     private static final long serialVersionUID = 227L;
 
@@ -51,7 +51,6 @@ public class MenuController extends MenuBar {
         this.setHelpMenu(helpMenu); // needed for portability (Motif, etc.).
     }
 
-    // create a menu item
     public MenuItem createMenuItem(String name, ActionListener action) {
         MenuItem menuItem;
         menuItem = new MenuItem(name);

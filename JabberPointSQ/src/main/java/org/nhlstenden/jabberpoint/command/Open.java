@@ -34,7 +34,6 @@ public class Open extends Command {
                         parent, Constants.IO_ERR + exc, Constants.LOAD_ERR, JOptionPane.ERROR_MESSAGE
                 );
             }
-
             parent.repaint();
         }
     }

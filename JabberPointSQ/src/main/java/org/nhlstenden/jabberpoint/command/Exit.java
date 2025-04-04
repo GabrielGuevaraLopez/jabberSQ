@@ -1,6 +1,5 @@
 package org.nhlstenden.jabberpoint.command;
 
-import org.nhlstenden.jabberpoint.Presentation;
 
 public class Exit extends Command{
 

@@ -30,7 +30,6 @@ public class BitmapItem extends SlideItem {
     protected static final String FILE = "File ";
     protected static final String NOTFOUND = " not found";
 
-    // level is equal to item-level; name is the name of the file with the Image
     public BitmapItem(int level, String name) {
         super(level);
         imageName = name;
@@ -42,17 +41,14 @@ public class BitmapItem extends SlideItem {
         }
     }
 
-    // An empty bitmap-item
     public BitmapItem() {
         this(0, null);
     }
 
-    // give the filename of the image
     public String getName() {
         return imageName;
     }
 
-    // give the  bounding box of the image
     @Override
     public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, StyleComponent style) {
         return new Rectangle((int) (style.getIndent() * scale), 0,
@@ -61,7 +57,6 @@ public class BitmapItem extends SlideItem {
                         (int) (bufferedImage.getHeight(observer) * scale));
     }
 
-    // draw the image
     @Override
     public void draw(int x, int y, float scale, Graphics g, StyleComponent style, ImageObserver observer) {
         int width = x + (int) (style.getIndent() * scale);

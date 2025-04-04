@@ -3,8 +3,7 @@ package org.nhlstenden.jabberpoint.util;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Constants
-{
+public class Constants {
     private static final String JSON_FILE = "constants.json";
 
     public static final String RESOURCE_LOADING_ERR =
@@ -20,8 +19,7 @@ public class Constants
     public static String TITLE_FRAME;
     public static String INT_ERR;
 
-    public static void loadConstants()
-    {
+    public static void loadConstants() {
         JSONObject json = new JSONObject(ResourceAccessor.getResourceAsString(JSON_FILE));
 
         try

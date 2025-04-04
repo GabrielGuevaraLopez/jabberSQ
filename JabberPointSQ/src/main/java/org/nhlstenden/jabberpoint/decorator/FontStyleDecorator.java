@@ -38,9 +38,7 @@ public class FontStyleDecorator extends StyleWrapper {
   }
 
   private Font applyFont() {
-    // Logic to apply the new font
     System.out.println("Applying font: " + newFont);
-    // You can add actual rendering logic here if needed
     return newFont;
   }
 }

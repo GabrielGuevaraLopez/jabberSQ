@@ -26,7 +26,6 @@ public class KeyController extends KeyAdapter {
     private final Map<Integer, Command> commandMap = new HashMap<>();
 
     public KeyController(Presentation presentation) {
-        // Map keys to command instances
         commandMap.put(KeyEvent.VK_PAGE_DOWN, new Next(presentation));
         commandMap.put(KeyEvent.VK_DOWN, new Next(presentation));
         commandMap.put(KeyEvent.VK_ENTER, new Next(presentation));

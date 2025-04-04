@@ -49,7 +49,6 @@ public class XMLAccessor extends Accessor {
     private String getTitle(Element element, String tagName) {
         NodeList titles = element.getElementsByTagName(tagName);
         return titles.item(0).getTextContent();
-        //gets the title
     }
 
     //Loads a specific file
@@ -88,7 +87,6 @@ public class XMLAccessor extends Accessor {
         }
     }
 
-    //Loads exclusively slide item instead of entire file
     protected void loadSlideItem(Slide slide, Element item) throws IOException {
         int level = 1; // default
         NamedNodeMap attributes = item.getAttributes();
@@ -115,11 +113,9 @@ public class XMLAccessor extends Accessor {
         }
     }
 
-    //saves file with a designated name
     public void saveFile(Presentation presentation, String filename) throws IOException {
         PrintWriter out = new PrintWriter(new FileWriter(filename));
         out.println("<?xml version=\"1.0\"?>");
-        out.println("<!DOCTYPE presentation SYSTEM \"jabberpoint.dtd\">");
         out.println("<presentation>");
         out.print("<showtitle>");
         out.print(presentation.getTitle());

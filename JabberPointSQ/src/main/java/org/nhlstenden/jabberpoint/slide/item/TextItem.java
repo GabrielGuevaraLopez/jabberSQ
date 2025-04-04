@@ -34,30 +34,25 @@ public class TextItem extends SlideItem {
 
     private static final String EMPTYTEXT = "No Text Given";
 
-    // a textitem of level level, with the text string
     public TextItem(int level, String string) {
         super(level);
         text = string;
     }
 
-    // an empty textitem
     public TextItem() {
         this(0, EMPTYTEXT);
     }
 
-    // give the text
     public String getText() {
         return text == null ? "" : text;
     }
 
-    // geef de AttributedString voor het item
     public AttributedString getAttributedString(StyleComponent style, float scale) {
         AttributedString attrStr = new AttributedString(getText());
         attrStr.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, text.length());
         return attrStr;
     } 
 
-    // give the bounding box of the item
     @Override
     public Rectangle getBoundingBox(Graphics g, ImageObserver observer,
                                     float scale, StyleComponent style) {
@@ -78,7 +73,6 @@ public class TextItem extends SlideItem {
         return new Rectangle((int) (style.getIndent()*scale), 0, xsize, ysize );
     }
 
-    // draw the item
     @Override
     public void draw(int x, int y, float scale, Graphics g,
                      StyleComponent style, ImageObserver o) {

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.nhlstenden.jabberpoint</groupId>
   <artifactId>jabbersq</artifactId>
   <version>1.6.1-pre</version>
-
   <name>JabberPointSQ</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
   </properties>
 
   <dependencies>
+    <!-- JUnit 4 -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -25,12 +25,7 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.jacoco</groupId>
-      <artifactId>jacoco-maven-plugin</artifactId>
-      <version>0.8.11</version>
-    </dependency>
-
+    <!-- JUnit 5 -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
@@ -38,12 +33,14 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- JSON support -->
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20240303</version>
     </dependency>
 
+    <!-- System exit test helper -->
     <dependency>
       <groupId>com.ginsberg</groupId>
       <artifactId>junit5-system-exit</artifactId>
@@ -53,22 +50,19 @@
   </dependencies>
 
   <build>
-    <!-- lock down plugins versions to avoid using Maven defaults -->
     <pluginManagement>
       <plugins>
-        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
         </plugin>
-        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.0.2</version>
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
+          <version>3.8.1</version>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
@@ -86,7 +80,6 @@
           <artifactId>maven-deploy-plugin</artifactId>
           <version>2.8.2</version>
         </plugin>
-        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
           <version>3.7.1</version>
@@ -97,8 +90,9 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    <!-- JaCoCo integration for the code coverage -->
+
     <plugins>
+      <!-- JaCoCo plugin -->
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -111,21 +105,9 @@
             </goals>
           </execution>
           <execution>
-            <id>default-prepare-agent-integration</id>
-            <goals>
-              <goal>prepare-agent-integration</goal>
-            </goals>
-          </execution>
-          <execution>
             <id>default-report</id>
             <goals>
               <goal>report</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>default-report-integration</id>
-            <goals>
-              <goal>report-integration</goal>
             </goals>
           </execution>
           <execution>
@@ -137,6 +119,8 @@
           </execution>
         </executions>
       </plugin>
+
+      <!-- Shade plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -151,7 +135,7 @@
               <outputDirectory>${project.build.outputDirectory}</outputDirectory>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>org.nhlstenden.org.nhlstenden.jabberpoint.JabberPoint</mainClass>
+                  <mainClass>org.nhlstenden.jabberpoint.JabberPoint</mainClass>
                 </transformer>
               </transformers>
             </configuration>

@@ -18,7 +18,7 @@ import java.awt.image.ImageObserver;
  */
 
 public abstract class SlideItem {
-    private int level = 0; // level of the slideitem
+    private int level = 0;
 
     public SlideItem(int lev) {
         level = lev;
@@ -28,16 +28,14 @@ public abstract class SlideItem {
         this(0);
     }
 
-    // Give the level
+
     public int getLevel() {
         return level;
     }
 
-    // Give the bounding box
     public abstract Rectangle getBoundingBox(Graphics g,
                                              ImageObserver observer, float scale, StyleComponent style);
-
-    // Draw the item
+    
     public abstract void draw(int x, int y, float scale,
                               Graphics g, StyleComponent style, ImageObserver observer);
 }

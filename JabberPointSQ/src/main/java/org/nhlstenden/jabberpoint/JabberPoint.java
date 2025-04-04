@@ -33,19 +33,17 @@ public class  JabberPoint {
 
     /** Het Main Programma */
     public static void main(String argv[]) {
-        // Simple example of decorator pattern usage
         Style baseStyle = new Style(20, Color.BLACK, 36, 10);
         StyleComponent decoratedStyle = new FontSizeStyleDecorator(
             new ColorStyleDecorator(baseStyle, Color.GREEN),
             48
         );
-        // The decorated style will have green color and larger font size
         decoratedStyle.createStyles();
         
         Presentation presentation = new Presentation();
         new SlideViewerFrame(JABVERSION, presentation);
         try {
-            if (argv.length == 0) { // een demo presentatie
+            if (argv.length == 0) {
                 Accessor.getDemoAccessor().loadFile(presentation, "");
             } else {
                 new XMLAccessor().loadFile(presentation, argv[0]);

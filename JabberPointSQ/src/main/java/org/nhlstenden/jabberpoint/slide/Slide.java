@@ -24,17 +24,15 @@ import java.util.Vector;
 public class Slide implements BaseSlide {
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
-    //Default width and height for the
 
-    private String title; // title is saved separately
+    private String title;
 
-    private Vector<SlideItem> items; // slide items are saved in a Vector
+    private Vector<SlideItem> items;
 
     public Slide() {
         items = new Vector<>();
         this.title = "Default title";
     }
-    //Constructor for empty slide to fill in later
 
     public Slide(String title, Vector<SlideItem> items){
         if (title.isEmpty()){
@@ -45,19 +43,15 @@ public class Slide implements BaseSlide {
         }
         this.items = items;
     }
-    //Constructor for the slide with contents
 
-    // give the title of the slide
     public String getTitle() {
         return title;
     }
 
-    // change the title of the slide
     public void setTitle(String newTitle) {
         title = newTitle;
     }
 
-    // give all SlideItems in a Vector
     public Vector<SlideItem> getSlideItems() {
         return items;
     }
@@ -66,55 +60,49 @@ public class Slide implements BaseSlide {
         this.items = slideItems;
     }
 
-    // give the size of the slide.Slide
     public int getNumberOfItems() {
         return items.size();
     }
 
-    // Add a slide item
     @Override
     public void append(SlideItem item) {
         items.addElement(item);
     }
 
-    // Create slide.TextItem of String, and add the slide.TextItem
     @Override
     public void append(int level, String message) {
         append(new TextItem(level, message));
     }
 
     private StyleComponent createStyle(int level) {
-        // Create base style and decorate it
         Style baseStyle;
         switch (level) {
-            case 0: // Title style
+            case 0:
                 baseStyle = new Style(0, Color.BLACK, 48, 20);
-                // Decorate with color and font size
                 return new ColorStyleDecorator(
                     new FontSizeStyleDecorator(baseStyle, 60),
                     Color.GREEN
                 );
-            case 1: // Main point style
+            case 1:
                 baseStyle = new Style(20, Color.BLACK, 36, 10);
                 return new ColorStyleDecorator(baseStyle, Color.RED);
-            case 2: // Sub point style
+            case 2:
                 baseStyle = new Style(40, Color.BLACK, 30, 10);
                 return new ColorStyleDecorator(baseStyle, Color.BLUE);
-            case 3: // Sub-sub point style
+            case 3:
                 baseStyle = new Style(60, Color.BLACK, 24, 10);
-                return baseStyle; // No decoration
-            case 4: // Sub-sub-sub point style
+                return baseStyle;
+            case 4:
                 baseStyle = new Style(100, Color.ORANGE, 5, 20);
                 return baseStyle;
-            case 5: // Sub-sub-sub-sub point style
+            case 5:
                 baseStyle = new Style(120, Color.PINK, 1, 20);
                 return baseStyle;
-            default: // Default style
+            default:
                 return new Style(60, Color.BLACK, 20, 10);
         }
     }
 
-    // draw the slide
     @Override
     public void draw(Graphics graphics, Rectangle rectangle, ImageObserver imageObserver) {
         float scale = getScale(rectangle);
@@ -133,7 +121,6 @@ public class Slide implements BaseSlide {
         }
     }
 
-    // Give the scale for drawing
     private float getScale(Rectangle area) {
         return Math.min(((float)area.width) / ((float)Slide.WIDTH), ((float)area.height) / ((float)Slide.HEIGHT));
     }
