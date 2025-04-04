@@ -3,6 +3,9 @@ package org.nhlstenden.jabberpoint.accessor;
 import org.nhlstenden.jabberpoint.Presentation;
 import org.nhlstenden.jabberpoint.slide.Slide;
 import org.nhlstenden.jabberpoint.slide.item.BitmapItem;
+import java.io.InputStream;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 /** A built in demo-presentation
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
@@ -51,7 +54,27 @@ class DemoPresentation extends Accessor {
         slide.append(2, "use File->Open from the menu.");
         slide.append(1, " ");
         slide.append(1, "This is the end of the presentation.");
-        slide.append(new BitmapItem(1, "JabberPoint.jpg"));
+
+        try {
+            System.out.println("Attempting to load JabberPoint.gif from resources...");
+            InputStream imageStream = getClass().getResourceAsStream("/JabberPoint.gif");
+            if (imageStream != null) {
+                System.out.println("Found image stream, reading image...");
+                BufferedImage image = ImageIO.read(imageStream);
+                if (image != null) {
+                    System.out.println("Successfully read image, dimensions: " + image.getWidth() + "x" + image.getHeight());
+                    slide.append(new BitmapItem(1, image));
+                } else {
+                    System.err.println("Failed to read image from stream - ImageIO.read returned null");
+                }
+            } else {
+                System.err.println("Could not find JabberPoint.gif in resources - stream is null");
+                System.err.println("Current class path: " + System.getProperty("java.class.path"));
+            }
+        } catch (Exception e) {
+            System.err.println("Exception while loading image: " + e.getMessage());
+            e.printStackTrace();
+        }
         presentation.append(slide);
     }
 

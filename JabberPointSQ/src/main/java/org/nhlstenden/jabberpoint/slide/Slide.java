@@ -107,7 +107,6 @@ public class Slide implements BaseSlide {
     public void draw(Graphics graphics, Rectangle rectangle, ImageObserver imageObserver) {
         float scale = getScale(rectangle);
         int y = rectangle.y;
-        // Title is handled separately
         SlideItem slideItem = new TextItem(0, this.getTitle());
         StyleComponent style = Style.getStyle(slideItem.getLevel());
         slideItem.draw(rectangle.x, y, scale, graphics, style, imageObserver);
