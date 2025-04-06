@@ -21,7 +21,7 @@ jobs:
           cache: maven
 
       - name: Package the application
-        run: cd JabberPointSQ && mvn clean package jacoco:report
+        run: cd JabberPointSQ && mvn clean package
 
       - name: Get project version
         run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
@@ -29,6 +29,6 @@ jobs:
       - name: Publish Release
         uses: softprops/action-gh-release@v2
         with:
-          files: "target/**.jar"
+          files: "JabberPointSQ/target/**.jar"
           name: ${{ env.VERSION }}
           tag_name: ${{ env.VERSION }}
