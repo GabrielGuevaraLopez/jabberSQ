@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>XMLAccessor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JabberPointSQ</a> &gt; <a href="index.source.html" class="el_package">org.nhlstenden.jabberpoint.accessor</a> &gt; <span class="el_source">XMLAccessor.java</span></div><h1>XMLAccessor.java</h1><pre class="source lang-java linenums">package org.nhlstenden.jabberpoint.accessor;
+
+import java.util.Vector;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.nhlstenden.jabberpoint.Presentation;
+import org.nhlstenden.jabberpoint.slide.Slide;
+import org.nhlstenden.jabberpoint.slide.item.BitmapItem;
+import org.nhlstenden.jabberpoint.slide.item.SlideItem;
+import org.nhlstenden.jabberpoint.slide.item.TextItem;
+import org.xml.sax.SAXException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.NodeList;
+
+/** XMLAccessor, reads and writes XML files
+ * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+ * @version 1.1 2002/12/17 Gert Florijn
+ * @version 1.2 2003/11/19 Sylvia Stuurman
+ * @version 1.3 2004/08/17 Sylvia Stuurman
+ * @version 1.4 2007/07/16 Sylvia Stuurman
+ * @version 1.5 2010/03/03 Sylvia Stuurman
+ * @version 1.6 2014/05/16 Sylvia Stuurman
+ */
+
+<span class="fc" id="L36">public class XMLAccessor extends Accessor {</span>
+<span class="fc" id="L37">    private final String SHOWTITLE = &quot;showtitle&quot;;</span>
+<span class="fc" id="L38">    private final String SLIDETITLE = &quot;title&quot;;</span>
+<span class="fc" id="L39">    private final String SLIDE = &quot;slide&quot;;</span>
+<span class="fc" id="L40">    private final String ITEM = &quot;item&quot;;</span>
+<span class="fc" id="L41">    private final String LEVEL = &quot;level&quot;;</span>
+<span class="fc" id="L42">    private final String KIND = &quot;kind&quot;;</span>
+<span class="fc" id="L43">    private final String TEXT = &quot;text&quot;;</span>
+<span class="fc" id="L44">    private final String IMAGE = &quot;image&quot;;</span>
+
+    protected static final String PCE = &quot;Parser Configuration Exception&quot;;
+    protected static final String UNKNOWNTYPE = &quot;Unknown Element type&quot;;
+    protected static final String NFE = &quot;Number Format Exception&quot;;
+
+
+    private String getTitle(Element element, String tagName) {
+<span class="fc" id="L52">        NodeList titles = element.getElementsByTagName(tagName);</span>
+<span class="fc" id="L53">        return titles.item(0).getTextContent();</span>
+    }
+
+    public void loadFile(Presentation presentation, String filename) throws IOException {
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (!Files.exists(Path.of(filename))) {</span>
+<span class="fc" id="L58">            throw new IOException(&quot;File does not exist: &quot; + filename);</span>
+        }
+
+        try {
+<span class="fc" id="L62">            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();</span>
+<span class="fc" id="L63">            Document document = builder.parse(new File(filename));</span>
+<span class="fc" id="L64">            Element doc = document.getDocumentElement();</span>
+<span class="fc" id="L65">            presentation.setTitle(getTitle(doc, SHOWTITLE));</span>
+
+<span class="fc" id="L67">            NodeList slides = doc.getElementsByTagName(this.SLIDE);</span>
+<span class="fc" id="L68">            int max = slides.getLength();</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">            for (int slideNumber = 0; slideNumber &lt; max; slideNumber++) {</span>
+<span class="fc" id="L70">                Element xmlSlide = (Element) slides.item(slideNumber);</span>
+<span class="fc" id="L71">                Slide slide = new Slide();</span>
+<span class="fc" id="L72">                slide.setTitle(getTitle(xmlSlide, SLIDETITLE));</span>
+<span class="fc" id="L73">                presentation.append(slide);</span>
+
+<span class="fc" id="L75">                NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);</span>
+<span class="fc" id="L76">                int maxItems = slideItems.getLength();</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">                for (int itemNumber = 0; itemNumber &lt; maxItems; itemNumber++) {</span>
+<span class="fc" id="L78">                    Element item = (Element) slideItems.item(itemNumber);</span>
+<span class="fc" id="L79">                    loadSlideItem(slide, item);</span>
+                }
+            }
+        }
+<span class="nc" id="L83">        catch (IOException iox) {</span>
+<span class="nc" id="L84">            throw iox;</span>
+        }
+<span class="nc" id="L86">        catch (SAXException sax) {</span>
+<span class="nc" id="L87">            throw new IOException(&quot;XML parsing error: &quot; + sax.getMessage(), sax);</span>
+        }
+<span class="nc" id="L89">        catch (ParserConfigurationException pcx) {</span>
+<span class="nc" id="L90">            throw new IOException(&quot;Parser configuration error: &quot; + pcx.getMessage(), pcx);</span>
+<span class="fc" id="L91">        }</span>
+<span class="fc" id="L92">    }</span>
+
+    protected void loadSlideItem(Slide slide, Element item) throws IOException {
+<span class="fc" id="L95">        int level = 1;</span>
+<span class="fc" id="L96">        NamedNodeMap attributes = item.getAttributes();</span>
+<span class="fc" id="L97">        String leveltext = attributes.getNamedItem(LEVEL).getTextContent();</span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if (leveltext != null) {</span>
+            try {
+<span class="fc" id="L100">                level = Integer.parseInt(leveltext);</span>
+            }
+<span class="nc" id="L102">            catch(NumberFormatException x) {</span>
+<span class="nc" id="L103">                System.err.println(NFE);</span>
+<span class="fc" id="L104">            }</span>
+        }
+<span class="fc" id="L106">        String type = attributes.getNamedItem(KIND).getTextContent();</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        if (TEXT.equals(type)) {</span>
+<span class="fc" id="L108">            slide.append(new TextItem(level, item.getTextContent()));</span>
+        }
+        else {
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">            if (IMAGE.equals(type)) {</span>
+<span class="fc" id="L112">                slide.append(new BitmapItem(level, item.getTextContent()));</span>
+            }
+            else {
+<span class="nc" id="L115">                System.err.println(UNKNOWNTYPE);</span>
+            }
+        }
+<span class="fc" id="L118">    }</span>
+
+    public void saveFile(Presentation presentation, String filename) throws IOException {
+<span class="fc" id="L121">        PrintWriter out = new PrintWriter(new FileWriter(filename));</span>
+<span class="fc" id="L122">        out.println(&quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;&quot;);</span>
+<span class="fc" id="L123">        out.println(&quot;&lt;presentation&gt;&quot;);</span>
+<span class="fc" id="L124">        out.print(&quot;&lt;showtitle&gt;&quot;);</span>
+<span class="fc" id="L125">        out.print(presentation.getTitle());</span>
+<span class="fc" id="L126">        out.println(&quot;&lt;/showtitle&gt;&quot;);</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">        for (int slideNumber=0; slideNumber&lt;presentation.getSize(); slideNumber++) {</span>
+<span class="fc" id="L128">            Slide slide = presentation.getSlide(slideNumber);</span>
+<span class="fc" id="L129">            out.println(&quot;&lt;slide&gt;&quot;);</span>
+<span class="fc" id="L130">            out.println(&quot;&lt;title&gt;&quot; + slide.getTitle() + &quot;&lt;/title&gt;&quot;);</span>
+<span class="fc" id="L131">            Vector&lt;SlideItem&gt; slideItems = slide.getSlideItems();</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">            for (int itemNumber = 0; itemNumber&lt;slideItems.size(); itemNumber++) {</span>
+<span class="fc" id="L133">                SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);</span>
+<span class="fc" id="L134">                out.print(&quot;&lt;item kind=&quot;);</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">                if (slideItem instanceof TextItem) {</span>
+<span class="fc" id="L136">                    out.print(&quot;\&quot;text\&quot; level=\&quot;&quot; + slideItem.getLevel() + &quot;\&quot;&gt;&quot;);</span>
+<span class="fc" id="L137">                    out.print( ( (TextItem) slideItem).getText());</span>
+                }
+                else {
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">                    if (slideItem instanceof BitmapItem) {</span>
+<span class="fc" id="L141">                        out.print(&quot;\&quot;image\&quot; level=\&quot;&quot; + slideItem.getLevel() + &quot;\&quot;&gt;&quot;);</span>
+<span class="fc" id="L142">                        out.print( ( (BitmapItem) slideItem).getName());</span>
+                    }
+                    else {
+<span class="nc" id="L145">                        System.out.println(&quot;Ignoring &quot; + slideItem);</span>
+                    }
+                }
+<span class="fc" id="L148">                out.println(&quot;&lt;/item&gt;&quot;);</span>
+            }
+<span class="fc" id="L150">            out.println(&quot;&lt;/slide&gt;&quot;);</span>
+        }
+<span class="fc" id="L152">        out.println(&quot;&lt;/presentation&gt;&quot;);</span>
+<span class="fc" id="L153">        out.close();</span>
+<span class="fc" id="L154">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
