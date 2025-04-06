@@ -3,6 +3,9 @@ package org.nhlstenden.jabberpoint.command;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.nhlstenden.jabberpoint.Presentation;
+
+import java.awt.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GoToTest {
@@ -28,18 +31,33 @@ class GoToTest {
 
     @Test
     void testGoToValidSlide() {
+        if (GraphicsEnvironment.isHeadless()) {
+            System.out.println("Headless environment detected. Skipping test.");
+            return;
+        }
+
         presentation.setSlideNumber(0);
         assertDoesNotThrow(() -> goToCommand.execute());
     }
 
     @Test
     void testGoToBoundaryMin() {
+        if (GraphicsEnvironment.isHeadless()) {
+            System.out.println("Headless environment detected. Skipping test.");
+            return;
+        }
+
         presentation.setSlideNumber(-1);
         assertDoesNotThrow(() -> goToCommand.execute());
     }
 
     @Test
     void testGoToBoundaryMax() {
+        if (GraphicsEnvironment.isHeadless()) {
+            System.out.println("Headless environment detected. Skipping test.");
+            return;
+        }
+
         presentation.setSlideNumber(Integer.MAX_VALUE);
         assertDoesNotThrow(() -> goToCommand.execute());
     }

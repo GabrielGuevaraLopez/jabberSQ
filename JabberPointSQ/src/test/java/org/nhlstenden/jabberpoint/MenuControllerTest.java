@@ -3,8 +3,9 @@ package org.nhlstenden.jabberpoint;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.MenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JFrame;
 import org.nhlstenden.jabberpoint.slide.SlideViewerComponent;
@@ -18,6 +19,11 @@ class MenuControllerTest {
 
     @BeforeEach
     void setUp() {
+        if (GraphicsEnvironment.isHeadless()) {
+            System.out.println("Headless environment detected. Skipping test.");
+            return;
+        }
+
         presentation = new Presentation();
         frame = new JFrame();
         slideViewer = new SlideViewerComponent(presentation, frame);

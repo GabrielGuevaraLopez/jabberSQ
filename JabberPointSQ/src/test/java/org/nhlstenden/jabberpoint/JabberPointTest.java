@@ -5,10 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.io.TempDir;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Files;
-import java.awt.Color;
 
 import org.nhlstenden.jabberpoint.decorator.Style;
 import org.nhlstenden.jabberpoint.decorator.StyleComponent;
@@ -25,6 +25,11 @@ class JabberPointTest {
 
     @Test 
     void testMainWithDifferentInputs(@TempDir Path tempDir) throws IOException {
+        if (GraphicsEnvironment.isHeadless()) {
+            System.out.println("Headless environment detected. Skipping test.");
+            return;
+        }
+        
         String[] emptyArgs = new String[]{};
         assertDoesNotThrow(() -> JabberPoint.main(emptyArgs));
 

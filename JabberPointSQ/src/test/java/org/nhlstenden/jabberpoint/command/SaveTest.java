@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.nhlstenden.jabberpoint.Presentation;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.awt.*;
 import java.nio.file.Path;
 import java.io.File;
 
@@ -26,6 +28,11 @@ class SaveTest {
 
     @Test
     void testSavePresentation(@TempDir Path tempDir) {
+        if (GraphicsEnvironment.isHeadless()) {
+            System.out.println("Headless environment detected. Skipping test.");
+            return;
+        }
+
         File emptyFile = tempDir.resolve("test.xml").toFile();
         assertDoesNotThrow(() -> saveCommand.execute());
         
