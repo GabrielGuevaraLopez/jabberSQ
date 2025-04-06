@@ -3,7 +3,7 @@ package org.nhlstenden.jabberpoint;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
 
-/**De About-box voor JabberPoint.
+/**The About-box for JabberPoint.
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
  * @version 1.2 2003/11/19 Sylvia Stuurman

@@ -48,7 +48,7 @@ public class MenuController extends MenuBar {
 
         Menu helpMenu = new Menu("Help");
         helpMenu.add(this.createMenuItem("About", e -> AboutBox.show(MenuController.this.parent), 'A'));
-        this.setHelpMenu(helpMenu); // needed for portability (Motif, etc.).
+        this.setHelpMenu(helpMenu);
     }
 
     public MenuItem createMenuItem(String name, ActionListener action) {

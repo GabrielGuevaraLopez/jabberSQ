@@ -1,5 +1,4 @@
 package org.nhlstenden.jabberpoint.command;
-
 import org.nhlstenden.jabberpoint.Presentation;
 import org.nhlstenden.jabberpoint.accessor.Accessor;
 import org.nhlstenden.jabberpoint.accessor.XMLAccessor;

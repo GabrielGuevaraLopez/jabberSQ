@@ -47,7 +47,8 @@ public class Style implements StyleComponent {
 
     @Override
     public Font getFont(float scale) {
-        return font.deriveFont(fontSize * scale);
+        float effectiveScale = Math.max(0.1f, scale);
+        return font.deriveFont(fontSize * effectiveScale);
     }
 
     @Override

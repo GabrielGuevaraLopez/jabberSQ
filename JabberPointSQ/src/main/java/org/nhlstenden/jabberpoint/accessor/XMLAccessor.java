@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -51,44 +53,46 @@ public class XMLAccessor extends Accessor {
         return titles.item(0).getTextContent();
     }
 
-    //Loads a specific file
     public void loadFile(Presentation presentation, String filename) throws IOException {
-        int slideNumber, itemNumber, max = 0, maxItems = 0;
+        if (!Files.exists(Path.of(filename))) {
+            throw new IOException("File does not exist: " + filename);
+        }
+
         try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document document = builder.parse(new File(filename)); // Create a JDOM document
+            Document document = builder.parse(new File(filename));
             Element doc = document.getDocumentElement();
             presentation.setTitle(getTitle(doc, SHOWTITLE));
 
             NodeList slides = doc.getElementsByTagName(this.SLIDE);
-            max = slides.getLength();
-            for (slideNumber = 0; slideNumber < max; slideNumber++) {
+            int max = slides.getLength();
+            for (int slideNumber = 0; slideNumber < max; slideNumber++) {
                 Element xmlSlide = (Element) slides.item(slideNumber);
                 Slide slide = new Slide();
                 slide.setTitle(getTitle(xmlSlide, SLIDETITLE));
                 presentation.append(slide);
 
                 NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);
-                maxItems = slideItems.getLength();
-                for (itemNumber = 0; itemNumber < maxItems; itemNumber++) {
+                int maxItems = slideItems.getLength();
+                for (int itemNumber = 0; itemNumber < maxItems; itemNumber++) {
                     Element item = (Element) slideItems.item(itemNumber);
                     loadSlideItem(slide, item);
                 }
             }
         }
         catch (IOException iox) {
-            System.err.println(iox.toString());
+            throw iox;
         }
         catch (SAXException sax) {
-            System.err.println(sax.getMessage());
+            throw new IOException("XML parsing error: " + sax.getMessage(), sax);
         }
         catch (ParserConfigurationException pcx) {
-            System.err.println(PCE);
+            throw new IOException("Parser configuration error: " + pcx.getMessage(), pcx);
         }
     }
 
     protected void loadSlideItem(Slide slide, Element item) throws IOException {
-        int level = 1; // default
+        int level = 1;
         NamedNodeMap attributes = item.getAttributes();
         String leveltext = attributes.getNamedItem(LEVEL).getTextContent();
         if (leveltext != null) {

@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 import java.io.IOException;
 
-/** <p>De klasse voor een Bitmap item</p>
+/** <p>The class for a bitmap item/p>
  * <p>Bitmap items have the responsibility to draw themselves.</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
@@ -24,7 +24,7 @@ import java.io.IOException;
  */
 
 public class BitmapItem extends SlideItem {
-    private BufferedImage bufferedImage;
+    protected BufferedImage bufferedImage;
     private String imageName;
 
     protected static final String FILE = "File ";
@@ -34,15 +34,26 @@ public class BitmapItem extends SlideItem {
         super(level);
         imageName = name;
         try {
-            bufferedImage = ImageIO.read(new File(imageName));
+            if (name != null) {
+                bufferedImage = ImageIO.read(new File(imageName));
+            } else {
+                bufferedImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
+            }
         }
         catch (IOException e) {
-            System.err.println(FILE + imageName + NOTFOUND) ;
+            System.err.println(FILE + imageName + NOTFOUND);
+            bufferedImage = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
         }
     }
 
+    public BitmapItem(int level, BufferedImage image) {
+        super(level);
+        bufferedImage = image != null ? image : new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
+        imageName = null;
+    }
+
     public BitmapItem() {
-        this(0, null);
+        this(0, (String)null);
     }
 
     public String getName() {
