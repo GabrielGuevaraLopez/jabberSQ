@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Presentation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JabberPointSQ</a> &gt; <a href="index.source.html" class="el_package">org.nhlstenden.jabberpoint</a> &gt; <span class="el_source">Presentation.java</span></div><h1>Presentation.java</h1><pre class="source lang-java linenums">package org.nhlstenden.jabberpoint;
+
+import org.nhlstenden.jabberpoint.command.PresentationReceiver;
+import org.nhlstenden.jabberpoint.slide.Slide;
+import org.nhlstenden.jabberpoint.slide.SlideViewerComponent;
+
+import javax.swing.*;
+import java.util.ArrayList;
+
+/**
+ * &lt;p&gt;Presentation maintains the slides in the presentation.&lt;/p&gt;
+ * &lt;p&gt;There is only instance of this class.&lt;/p&gt;
+ * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+ * @version 1.1 2002/12/17 Gert Florijn
+ * @version 1.2 2003/11/19 Sylvia Stuurman
+ * @version 1.3 2004/08/17 Sylvia Stuurman
+ * @version 1.4 2007/07/16 Sylvia Stuurman
+ * @version 1.5 2010/03/03 Sylvia Stuurman
+ * @version 1.6 2014/05/16 Sylvia Stuurman
+ */
+
+public class Presentation implements PresentationReceiver
+{
+    private String showTitle;
+<span class="pc" id="L25">    private ArrayList&lt;Slide&gt; showList = null;</span>
+<span class="pc" id="L26">    private int currentSlideNumber = 0;</span>
+    private SlideViewerComponent slideViewComponent;
+
+<span class="fc" id="L29">    public Presentation() {</span>
+<span class="fc" id="L30">        this.slideViewComponent = null;</span>
+<span class="fc" id="L31">        this.clear();</span>
+<span class="fc" id="L32">    }</span>
+
+<span class="nc" id="L34">    public Presentation(SlideViewerComponent slideViewerComponent) {</span>
+<span class="nc" id="L35">        this.slideViewComponent = slideViewerComponent;</span>
+<span class="nc" id="L36">        this.clear();</span>
+<span class="nc" id="L37">    }</span>
+
+    public int getSize() {
+<span class="fc" id="L40">        return this.showList.size();</span>
+    }
+
+    public SlideViewerComponent getParent() {
+<span class="fc" id="L44">        return this.slideViewComponent;</span>
+    }
+
+    public String getTitle() {
+<span class="fc" id="L48">        return this.showTitle;</span>
+    }
+
+    public void setTitle(String nt) {
+<span class="fc" id="L52">        this.showTitle = nt;</span>
+<span class="fc" id="L53">    }</span>
+
+    public void setShowView(SlideViewerComponent slideViewerComponent) {
+<span class="fc" id="L56">        this.slideViewComponent = slideViewerComponent;</span>
+<span class="fc" id="L57">    }</span>
+
+    public int getSlideNumber() {
+<span class="fc" id="L60">        return this.currentSlideNumber;</span>
+    }
+
+    public void setSlideNumber(int number) {
+<span class="fc bfc" id="L64" title="All 4 branches covered.">        if (number &lt; 0 || number &gt; (this.showList.size() - 1)) {</span>
+<span class="fc" id="L65">            return;</span>
+        }
+
+<span class="fc" id="L68">        this.currentSlideNumber = number;</span>
+
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (this.slideViewComponent == null) {</span>
+<span class="fc" id="L71">            return;</span>
+        }
+
+<span class="fc" id="L74">        this.slideViewComponent.update(this, this.getCurrentSlide());</span>
+<span class="fc" id="L75">    }</span>
+
+    public void prevSlide() {
+<span class="fc" id="L78">        this.setSlideNumber(this.currentSlideNumber - 1);</span>
+<span class="fc" id="L79">    }</span>
+
+    public void nextSlide() {
+<span class="fc" id="L82">        this.setSlideNumber(this.currentSlideNumber + 1);</span>
+<span class="fc" id="L83">    }</span>
+
+    public void clear() {
+<span class="fc" id="L86">        this.showList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L87">        this.setSlideNumber(-1);</span>
+<span class="fc" id="L88">    }</span>
+
+    public void append(Slide slide) {
+<span class="fc" id="L91">        this.showList.add(slide);</span>
+<span class="fc" id="L92">    }</span>
+
+    public Slide getSlide(int number) {
+<span class="pc bpc" id="L95" title="2 of 4 branches missed.">        if (number &lt; 0 || number &gt;= this.getSize()) {</span>
+<span class="nc" id="L96">            return null;</span>
+        }
+<span class="fc" id="L98">        return this.showList.get(number);</span>
+    }
+
+    public Slide getCurrentSlide() {
+<span class="fc" id="L102">        return this.getSlide(this.currentSlideNumber);</span>
+    }
+
+    @Override
+    public void open() {
+<span class="nc" id="L107">    }</span>
+
+    @Override
+    public void save() {
+<span class="nc" id="L111">    }</span>
+
+    @Override
+    public void goTo(int slideNumber) {
+<span class="nc" id="L115">        this.setSlideNumber(slideNumber);</span>
+<span class="nc" id="L116">    }</span>
+
+    @Override
+    public void next() {
+<span class="fc" id="L120">        this.nextSlide();</span>
+<span class="fc" id="L121">    }</span>
+
+    @Override
+    public void previous() {
+<span class="fc" id="L125">        this.prevSlide();</span>
+<span class="fc" id="L126">    }</span>
+
+    @Override
+    public void newFile() {
+<span class="nc" id="L130">        this.clear();</span>
+<span class="nc" id="L131">    }</span>
+
+    @Override
+    public void exit() {
+<span class="nc" id="L135">        System.exit(0);</span>
+<span class="nc" id="L136">    }</span>
+
+    @Override
+    public void help() {
+<span class="nc" id="L140">        JOptionPane.showMessageDialog(null, &quot;Help is not yet implemented.&quot;);</span>
+<span class="nc" id="L141">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
