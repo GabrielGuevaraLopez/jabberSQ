@@ -20,7 +20,7 @@ jobs:
           cache: maven
 
       - name: Compile the project
-        run: cd JabberPointSQ && mvn clean test jacoco:report
+        run: cd JabberPointSQ && mvn clean compile jacoco:report
 
       - name: Apply Google Java Format
         uses: axel-op/googlejavaformat-action@v3

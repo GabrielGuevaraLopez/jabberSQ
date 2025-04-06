@@ -21,7 +21,7 @@ jobs:
           cache: maven
 
       - name: Package the application
-        run: cd JabberPointSQ && mvn clean test jacoco:report
+        run: cd JabberPointSQ && mvn clean package jacoco:report
 
       - name: Get project version
         run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
