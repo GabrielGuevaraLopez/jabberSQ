@@ -29,7 +29,7 @@ class JabberPointTest {
             System.out.println("Headless environment detected. Skipping test.");
             return;
         }
-        
+
         String[] emptyArgs = new String[]{};
         assertDoesNotThrow(() -> JabberPoint.main(emptyArgs));
 
