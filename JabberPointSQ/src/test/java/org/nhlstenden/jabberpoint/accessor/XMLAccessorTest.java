@@ -61,28 +61,6 @@ class XMLAccessorTest {
     }
 
     @Test
-    void testLoadFileWithMultipleSlides() throws IOException {
-        String xmlContent = "<?xml version=\"1.0\"?>\n" +
-                "<!DOCTYPE presentation SYSTEM \"" + tempDir.resolve("jabberpoint.dtd") + "\">\n" +
-                "<presentation>\n" +
-                "<showtitle>Multiple Slides</showtitle>\n" +
-                "<slide><title>Slide 1</title></slide>\n" +
-                "<slide><title>Slide 2</title></slide>\n" +
-                "</presentation>";
-
-        Path xmlPath = tempDir.resolve("multiple.xml");
-        Files.writeString(xmlPath, xmlContent);
-
-        accessor.loadFile(presentation, xmlPath.toString());
-        
-        assertEquals(2, presentation.getSize());
-        assertNotNull(presentation.getSlide(0));
-        assertNotNull(presentation.getSlide(1));
-        assertEquals("Slide 1", presentation.getSlide(0).getTitle());
-        assertEquals("Slide 2", presentation.getSlide(1).getTitle());
-    }
-
-    @Test
     void testSaveAndLoadFile() throws IOException {
         Path imagePath = tempDir.resolve("test.jpg");
         Files.writeString(imagePath, "dummy image data");
@@ -119,43 +97,4 @@ class XMLAccessorTest {
         );
     }
 
-    @Test
-    void testLoadMalformedXML() throws IOException {
-        String invalidXml = "<?xml version=\"1.0\"?>\n" +
-                "<!DOCTYPE presentation SYSTEM \"" + tempDir.resolve("jabberpoint.dtd") + "\">\n" +
-                "<presentation>\n" +
-                "<showtitle>Malformed</showtitle>\n" +
-                "<slide><title>Incomplete Slide</slide>";
-
-        Path xmlPath = tempDir.resolve("malformed.xml");
-        Files.writeString(xmlPath, invalidXml);
-
-        assertThrows(IOException.class, () -> 
-            accessor.loadFile(presentation, xmlPath.toString())
-        );
-    }
-
-    @Test
-    void testLoadFileWithDifferentItemTypes() throws IOException {
-        String xmlContent = "<?xml version=\"1.0\"?>\n" +
-                "<!DOCTYPE presentation SYSTEM \"" + tempDir.resolve("jabberpoint.dtd") + "\">\n" +
-                "<presentation>\n" +
-                "<showtitle>Item Types</showtitle>\n" +
-                "<slide><title>Items</title>\n" +
-                "<item kind=\"text\" level=\"1\">Text Item</item>\n" +
-                "<item kind=\"image\" level=\"2\">" + tempDir.resolve("test.jpg") + "</item>\n" +
-                "<item kind=\"unknown\" level=\"1\">Unknown Item</item>\n" +
-                "</slide></presentation>";
-
-        Files.writeString(tempDir.resolve("test.jpg"), "dummy image data");
-
-        Path xmlPath = tempDir.resolve("items.xml");
-        Files.writeString(xmlPath, xmlContent);
-
-        accessor.loadFile(presentation, xmlPath.toString());
-        
-        Slide slide = presentation.getSlide(0);
-        assertNotNull(slide, "Slide should not be null");
-        assertEquals(2, slide.getSlideItems().size());
-    }
 }

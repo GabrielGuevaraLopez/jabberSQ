@@ -14,12 +14,6 @@ class ResourceAccessorTest {
     }
 
     @Test
-    void testGetResourceWithValidFile() {
-        InputStream stream = ResourceAccessor.getResource("constants.json");
-        assertNotNull(stream);
-    }
-
-    @Test
     void testGetResourceAsString() {
         String content = ResourceAccessor.getResourceAsString("constants.json");
         assertNotNull(content);
@@ -38,5 +32,15 @@ class ResourceAccessorTest {
         assertThrows(IllegalStateException.class, () -> {
             ResourceAccessor.getResource("nonexistent.file");
         });
+    }
+
+    @Test
+    void testResourceLoading() {
+        InputStream stream = ResourceAccessor.getResource("constants.json");
+        assertNotNull(stream);
+        
+        String content = ResourceAccessor.getResourceAsString("constants.json");
+        assertNotNull(content);
+        assertTrue(content.contains("testFile"));
     }
 }

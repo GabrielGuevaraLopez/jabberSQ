@@ -20,61 +20,28 @@ class NextTest {
     }
 
     @Test
-    void testConstructorNotNull1() {
+    void testConstructor() {
         Next command = new Next(presentation);
         assertNotNull(command);
-    }
-
-    @Test
-    void testConstructorNotNull2() {
-        Next command = new Next(new Presentation());
-        assertNotNull(command);
-    }
-
-    @Test
-    void testConstructorHasPresentation1() {
+        
         Presentation pres = new Presentation();
-        Next command = new Next(pres);
+        Next command2 = new Next(pres);
         assertNotNull(pres);
+        assertNotNull(command2);
     }
 
     @Test
-    void testConstructorHasPresentation2() {
-        Presentation pres = new Presentation();
-        pres.setTitle("Test");
-        Next command = new Next(pres);
-        assertNotNull(pres);
-        assertEquals("Test", pres.getTitle());
-    }
-
-    @Test
-    void testNextSlideIncrementsSlideNumber1() {
+    void testNextSlideIncrementsSlideNumber() {
         presentation.setSlideNumber(0);
         nextCommand.execute();
         assertEquals(1, presentation.getSlideNumber());
     }
 
     @Test
-    void testNextSlideIncrementsSlideNumber2() {
-        presentation.setSlideNumber(1);
-        nextCommand.execute();
-        assertEquals(2, presentation.getSlideNumber());
-    }
-
-    @Test
-    void testNextSlideFromLastSlide1() {
+    void testNextSlideFromLastSlide() {
         int lastSlideIndex = presentation.getSize() - 1;
         presentation.setSlideNumber(lastSlideIndex);
         nextCommand.execute();
-        assertEquals(lastSlideIndex, presentation.getSlideNumber());
-    }
-
-    @Test
-    void testNextSlideFromLastSlide2() {
-        int lastSlideIndex = presentation.getSize() - 1;
-        presentation.setSlideNumber(lastSlideIndex);
-        nextCommand.execute();
-        nextCommand.execute(); // For boundary testing
         assertEquals(lastSlideIndex, presentation.getSlideNumber());
     }
 }

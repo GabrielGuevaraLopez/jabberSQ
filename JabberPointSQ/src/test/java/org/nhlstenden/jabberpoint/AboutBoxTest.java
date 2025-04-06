@@ -7,25 +7,13 @@ import java.awt.Frame;
 class AboutBoxTest {
 
     @Test
-    void testShowWithNullFrame1() {
+    void testShowWithNullFrame() {
         assertDoesNotThrow(() -> AboutBox.show(null));
     }
 
     @Test
-    void testShowWithNullFrame2() {
-        Frame frame = null;
-        assertDoesNotThrow(() -> AboutBox.show(frame));
-    }
-
-    @Test
-    void testShowWithValidFrame1() {
+    void testShowWithValidFrame() {
         Frame frame = new Frame();
-        assertDoesNotThrow(() -> AboutBox.show(frame));
-    }
-
-    @Test
-    void testShowWithValidFrame2() {
-        Frame frame = new Frame("Test Frame");
         assertDoesNotThrow(() -> AboutBox.show(frame));
     }
 }

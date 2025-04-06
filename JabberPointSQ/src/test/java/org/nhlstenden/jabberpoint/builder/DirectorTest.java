@@ -22,98 +22,51 @@ class DirectorTest {
     }
 
     @Test
-    void testConstructorNotNull1() {
+    void testConstructorNotNull() {
         assertNotNull(director);
     }
 
     @Test
-    void testConstructorNotNull2() {
-        Director newDirector = new Director(new BaselineBuilder());
-        assertNotNull(newDirector);
-    }
-
-    @Test
-    void testGetBuilder1() {
+    void testGetBuilder() {
         assertEquals(builder, director.getBuilder());
     }
 
     @Test
-    void testGetBuilder2() {
-        Builder newBuilder = new BaselineBuilder();
-        Director newDirector = new Director(newBuilder);
-        assertEquals(newBuilder, newDirector.getBuilder());
-    }
-
-    @Test
-    void testSetBuilder1() {
+    void testSetBuilder() {
         Builder newBuilder = new BaselineBuilder();
         director.setBuilder(newBuilder);
         assertEquals(newBuilder, director.getBuilder());
     }
 
     @Test
-    void testSetBuilder2() {
-        Builder newBuilder = new BaselineBuilder();
-        director.setBuilder(newBuilder);
-        assertNotEquals(builder, director.getBuilder());
-    }
-
-    @Test
-    void testChangeBuilder1() {
+    void testChangeBuilder() {
         Builder newBuilder = new BaselineBuilder();
         director.changeBuilder(newBuilder);
         assertEquals(newBuilder, director.getBuilder());
     }
 
     @Test
-    void testChangeBuilder2() {
-        Builder originalBuilder = director.getBuilder();
+    void testBuilderOperations() {
         Builder newBuilder = new BaselineBuilder();
-        director.changeBuilder(newBuilder);
-        assertNotEquals(originalBuilder, director.getBuilder());
+        director.setBuilder(newBuilder);
+        assertEquals(newBuilder, director.getBuilder());
     }
 
     @Test
-    void testMakeBaseSlide1() {
-        BaseSlide slide = director.make("Test Title", items);
-        assertNotNull(slide);
-        assertTrue(slide instanceof BaseSlide);
-    }
+    void testMakeSlides() {
+        // Test base slide
+        BaseSlide baseSlide = director.make("Test Title", items);
+        assertNotNull(baseSlide);
+        assertTrue(baseSlide instanceof BaseSlide);
 
-    @Test
-    void testMakeBaseSlide2() {
-        Vector<SlideItem> newItems = new Vector<>();
-        newItems.add(new TextItem(2, "Another Test"));
-        BaseSlide slide = director.make("Another Title", newItems);
-        assertNotNull(slide);
-        assertEquals(1, newItems.size());
-    }
+        // Test animation slide
+        BaseSlide animSlide = director.make("Animation Test", items, "test.gif");
+        assertNotNull(animSlide);
+        assertTrue(animSlide instanceof BaseSlide);
 
-    @Test
-    void testMakeAnimationSlide1() {
-        BaseSlide slide = director.make("Animation Test", items, "test.gif");
-        assertNotNull(slide);
-        
-        assertTrue(slide instanceof BaseSlide);
-    }
-
-    @Test
-    void testMakeAnimationSlide2() {
-        BaseSlide slide = director.make("Animation Test 2", items, "another.gif");
-        assertNotNull(slide);
-        assertTrue(slide instanceof BaseSlide);
-    }
-
-    @Test
-    void testMakeVideoSlide1() {
-        BaseSlide slide = director.make("Video Test", items, "test.mp4", 0, 0, 640, 480);
-        assertNotNull(slide);
-    }
-
-    @Test
-    void testMakeVideoSlide2() {
-        BaseSlide slide = director.make("Video Test 2", items, "another.mp4", 100, 100, 800, 600);
-        assertNotNull(slide);
-        assertTrue(slide instanceof BaseSlide);
+        // Test video slide
+        BaseSlide videoSlide = director.make("Video Test", items, "test.mp4", 0, 0, 640, 480);
+        assertNotNull(videoSlide);
+        assertTrue(videoSlide instanceof BaseSlide);
     }
 }

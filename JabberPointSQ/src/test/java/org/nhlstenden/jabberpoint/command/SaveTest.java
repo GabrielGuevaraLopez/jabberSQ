@@ -19,25 +19,18 @@ class SaveTest {
     }
 
     @Test
-    void testConstructorNotNull() {
+    void testConstructor() {
         assertNotNull(saveCommand);
-    }
-
-    @Test
-    void testConstructorHasPresentation() {
         assertNotNull(presentation);
     }
 
     @Test
-    void testSaveEmptyPresentation(@TempDir Path tempDir) {
-        File testFile = tempDir.resolve("test.xml").toFile();
+    void testSavePresentation(@TempDir Path tempDir) {
+        File emptyFile = tempDir.resolve("test.xml").toFile();
         assertDoesNotThrow(() -> saveCommand.execute());
-    }
-
-    @Test 
-    void testSaveWithContent(@TempDir Path tempDir) {
+        
         presentation.setTitle("Test Presentation");
-        File testFile = tempDir.resolve("test-with-content.xml").toFile();
+        File contentFile = tempDir.resolve("test-with-content.xml").toFile();
         assertDoesNotThrow(() -> saveCommand.execute());
     }
 }

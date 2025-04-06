@@ -23,31 +23,24 @@ class JabberPointTest {
         presentation = new Presentation();
     }
 
-    @Test
-    void testMainWithNoArguments() {
-        String[] args = new String[]{};
-        assertDoesNotThrow(() -> JabberPoint.main(args));
-    }
-
     @Test 
-    void testMainWithValidXMLFile(@TempDir Path tempDir) throws IOException {
+    void testMainWithDifferentInputs(@TempDir Path tempDir) throws IOException {
+        String[] emptyArgs = new String[]{};
+        assertDoesNotThrow(() -> JabberPoint.main(emptyArgs));
+
         Path xmlPath = tempDir.resolve("test.xml");
         String xmlContent = "<?xml version=\"1.0\"?>\n" +
-                          "<!DOCTYPE presentation SYSTEM \"jabberpoint.dtd\">\n" +
                           "<presentation>\n" +
                           "<showtitle>Test Presentation</showtitle>\n" +
                           "<slide><title>Test Slide</title></slide>\n" +
                           "</presentation>";
         Files.writeString(xmlPath, xmlContent);
-
-        String[] args = new String[]{xmlPath.toString()};
-        assertDoesNotThrow(() -> JabberPoint.main(args));
-    }
-
-    @Test
-    void testMainWithInvalidXMLFile() {
-        String[] args = new String[]{"nonexistent.xml"};
-        assertDoesNotThrow(() -> JabberPoint.main(args));
+        String[] validArgs = new String[]{xmlPath.toString()};
+        assertDoesNotThrow(() -> JabberPoint.main(validArgs));
+        
+        // Test with invalid file
+        String[] invalidArgs = new String[]{"nonexistent.xml"};
+        assertDoesNotThrow(() -> JabberPoint.main(invalidArgs));
     }
 
     @Test

@@ -22,12 +22,6 @@ class IndentStyleDecoratorTest {
     }
 
     @Test
-    void testGetIndent() {
-        IndentStyleDecorator decorator = new IndentStyleDecorator(baseStyle, 30);
-        assertEquals(30, decorator.getIndent());
-    }
-
-    @Test
     void testCreateStyles() {
         IndentStyleDecorator decorator = new IndentStyleDecorator(baseStyle, 30);
         assertDoesNotThrow(() -> decorator.createStyles());
@@ -43,22 +37,23 @@ class IndentStyleDecoratorTest {
     }
 
     @Test
-    void testNegativeIndent() {
-        IndentStyleDecorator decorator = new IndentStyleDecorator(baseStyle, -10);
-        assertEquals(-10, decorator.getIndent());
-    }
-
-    @Test
-    void testZeroIndent() {
-        IndentStyleDecorator decorator = new IndentStyleDecorator(baseStyle, 0);
-        assertEquals(0, decorator.getIndent());
-    }
-
-    @Test
     void testInheritedMethods() {
         IndentStyleDecorator decorator = new IndentStyleDecorator(baseStyle, 30);
         assertEquals(baseStyle.getColor(), decorator.getColor());
         assertEquals(baseStyle.getFont(scale), decorator.getFont(scale));
         assertEquals(baseStyle.getLeading(), decorator.getLeading());
+    }
+
+    @Test
+    void testIndentValues() {
+        IndentStyleDecorator decorator1 = new IndentStyleDecorator(baseStyle, 30);
+        IndentStyleDecorator decorator2 = new IndentStyleDecorator(baseStyle, 40);
+        assertEquals(30, decorator1.getIndent());
+        assertEquals(40, decorator2.getIndent());
+        
+        IndentStyleDecorator zeroDecorator = new IndentStyleDecorator(baseStyle, 0);
+        IndentStyleDecorator negativeDecorator = new IndentStyleDecorator(baseStyle, -10);
+        assertEquals(0, zeroDecorator.getIndent());
+        assertEquals(-10, negativeDecorator.getIndent());
     }
 }

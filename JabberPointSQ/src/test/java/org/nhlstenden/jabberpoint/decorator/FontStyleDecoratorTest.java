@@ -55,17 +55,13 @@ class FontStyleDecoratorTest {
     }
 
     @Test
-    void testNullFont() {
-        FontStyleDecorator decorator = new FontStyleDecorator(baseStyle, null);
-        assertDoesNotThrow(() -> decorator.createStyles());
-        assertNull(decorator.getFont(scale));
-    }
-
-    @Test
-    void testDifferentFonts() {
+    void testFontVariations() {
+        FontStyleDecorator nullDecorator = new FontStyleDecorator(baseStyle, null);
+        assertDoesNotThrow(() -> nullDecorator.createStyles());
+        assertNull(nullDecorator.getFont(scale));
+        
         Font font1 = new Font("Arial", Font.BOLD, 24);
         Font font2 = new Font("Times New Roman", Font.PLAIN, 12);
-        
         FontStyleDecorator decorator1 = new FontStyleDecorator(baseStyle, font1);
         FontStyleDecorator decorator2 = new FontStyleDecorator(baseStyle, font2);
         

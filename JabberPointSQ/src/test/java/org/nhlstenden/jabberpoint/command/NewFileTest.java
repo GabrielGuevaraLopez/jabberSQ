@@ -21,62 +21,20 @@ class NewFileTest {
     }
 
     @Test
-    void testConstructorNotNull1() {
+    void testConstructor() {
         NewFile command = new NewFile(presentation);
         assertNotNull(command);
+        assertNotNull(presentation);
     }
 
     @Test
-    void testConstructorNotNull2() {
-        NewFile command = new NewFile(new Presentation());
-        assertNotNull(command);
-    }
-
-    @Test
-    void testConstructorHasPresentation1() {
-        Presentation pres = new Presentation();
-        NewFile command = new NewFile(pres);
-        assertNotNull(pres);
-    }
-
-    @Test
-    void testConstructorHasPresentation2() {
-        Presentation pres = new Presentation();
-        pres.setTitle("Test");
-        NewFile command = new NewFile(pres);
-        assertNotNull(pres);
-        assertEquals("Test", pres.getTitle());
-    }
-
-    @Test
-    void testNewFileClearsPresentation1() {
-        presentation.setTitle("Test1");
+    void testNewFileOperation() {
+        presentation.setTitle("Test");
         presentation.setSlideNumber(1);
         newFileCommand.execute();
         assertEquals(0, presentation.getSlideNumber());
         assertEquals(0, presentation.getSize());
-    }
-
-    @Test
-    void testNewFileClearsPresentation2() {
-        presentation.setTitle("Test2");
-        presentation.setSlideNumber(2);
-        newFileCommand.execute();
-        assertEquals(0, presentation.getSlideNumber());
-        assertEquals(0, presentation.getSize());
-    }
-
-    @Test
-    void testNewFileWithEmptyPresentation1() {
-        presentation.setSlideNumber(0);
-        newFileCommand.execute();
-        assertEquals(0, presentation.getSlideNumber());
-        assertEquals(0, presentation.getSize());
-    }
-
-    @Test
-    void testNewFileWithEmptyPresentation2() {
-        presentation.setTitle("");
+        
         presentation.setSlideNumber(0);
         newFileCommand.execute();
         assertEquals(0, presentation.getSlideNumber());

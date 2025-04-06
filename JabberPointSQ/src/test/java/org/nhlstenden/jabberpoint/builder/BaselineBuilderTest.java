@@ -22,18 +22,12 @@ class BaselineBuilderTest {
     }
 
     @Test
-    void testConstructorNotNull1() {
+    void testConstructorNotNull() {
         assertNotNull(builder);
     }
 
     @Test
-    void testConstructorNotNull2() {
-        BaselineBuilder newBuilder = new BaselineBuilder();
-        assertNotNull(newBuilder);
-    }
-
-    @Test
-    void testBaselineCreatorSetup1() {
+    void testBaselineCreatorSetup() {
         builder.baselineCreatorSetup("Test Title", items);
         BaseSlide result = builder.getResult();
         assertNotNull(result);
@@ -42,56 +36,21 @@ class BaselineBuilderTest {
     }
 
     @Test
-    void testBaselineCreatorSetup2() {
-        Vector<SlideItem> newItems = new Vector<>();
-        newItems.add(new TextItem(2, "Another Test"));
-        builder.baselineCreatorSetup("Another Title", newItems);
-        BaseSlide result = builder.getResult();
-        assertNotNull(result);
-        assertTrue(result instanceof BaseSlide);
-        assertEquals(1, newItems.size());
-    }
-
-    @Test
-    void testVideoCreatorSetupNoEffect1() {
-        builder.videoCreatorSetup("Video Title", items, "test.mp4", 0, 0, 640, 480);
-        BaseSlide result = builder.getResult();
-        assertNotNull(result);
-        assertTrue(result instanceof Slide);
-    }
-
-    @Test
-    void testVideoCreatorSetupNoEffect2() {
-        builder.videoCreatorSetup("Video Title 2", items, "another.mp4", 100, 100, 800, 600);
-        BaseSlide result = builder.getResult();
-        assertNotNull(result);
-        assertTrue(result instanceof Slide);
-    }
-
-    @Test
-    void testAnimationCreatorSetupNoEffect1() {
-        builder.animationCreatorSetup("Animation Title", items, "test.gif");
-        BaseSlide result = builder.getResult();
-        assertNotNull(result);
-        assertTrue(result instanceof Slide);
-    }
-
-    @Test
-    void testAnimationCreatorSetupNoEffect2() {
-        builder.animationCreatorSetup("Animation Title 2", items, "another.gif");
-        BaseSlide result = builder.getResult();
-        assertNotNull(result);
-        assertTrue(result instanceof Slide);
-    }
-
-    @Test
-    void testGetResultNoSetup1() {
+    void testGetResultNoSetup() {
         assertNull(builder.getResult());
     }
 
     @Test
-    void testGetResultNoSetup2() {
-        BaselineBuilder newBuilder = new BaselineBuilder();
-        assertNull(newBuilder.getResult());
+    void testMediaCreatorSetups() {
+        builder.videoCreatorSetup("Video Title", items, "test.mp4", 0, 0, 640, 480);
+        BaseSlide videoResult = builder.getResult();
+        assertNotNull(videoResult);
+        assertTrue(videoResult instanceof Slide);
+
+        builder = new BaselineBuilder();
+        builder.animationCreatorSetup("Animation Title", items, "test.gif");
+        BaseSlide animationResult = builder.getResult();
+        assertNotNull(animationResult);
+        assertTrue(animationResult instanceof Slide);
     }
 }

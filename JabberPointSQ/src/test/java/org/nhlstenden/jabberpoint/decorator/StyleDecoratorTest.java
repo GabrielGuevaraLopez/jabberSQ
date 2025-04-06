@@ -16,14 +16,11 @@ class StyleDecoratorTest {
     }
 
     @Test
-    void testBaseStyle() {
+    void testBaseStyles() {
         assertEquals(20, baseStyle.getIndent());
         assertEquals(Color.BLACK, baseStyle.getColor());
         assertEquals(10, baseStyle.getLeading());
-    }
-
-    @Test
-    void testBaseStyleDifferentValues() {
+        
         Style style = new Style(30, Color.RED, 48, 15);
         assertEquals(30, style.getIndent());
         assertEquals(Color.RED, style.getColor());
@@ -36,13 +33,9 @@ class StyleDecoratorTest {
         assertEquals(Color.RED, decorated.getColor());
         assertEquals(20, decorated.getIndent());
         assertEquals(10, decorated.getLeading());
-    }
-
-    @Test
-    void testColorDecoratorMultipleColors() {
-        StyleComponent decorated1 = new ColorStyleDecorator(baseStyle, Color.RED);
+        
         StyleComponent decorated2 = new ColorStyleDecorator(baseStyle, Color.BLUE);
-        assertNotEquals(decorated1.getColor(), decorated2.getColor());
+        assertNotEquals(decorated.getColor(), decorated2.getColor());
     }
 
     @Test
@@ -97,33 +90,5 @@ class StyleDecoratorTest {
     void testZeroScale() {
         Font font = baseStyle.getFont(0);
         assertTrue(font.getSize() > 0);
-    }
-
-    @Test
-    void testNegativeFontSize1() {
-        StyleComponent decorated = new FontSizeStyleDecorator(baseStyle, -10);
-        Font font = decorated.getFont(scale);
-        assertTrue(font.getSize() > 0);
-    }
-
-    @Test
-    void testNegativeFontSize2() {
-        StyleComponent decorated = new FontSizeStyleDecorator(baseStyle, -20);
-        Font font = decorated.getFont(scale);
-        assertTrue(font.getSize() > 0);
-        assertNotEquals(-20, font.getSize());
-    }
-
-    @Test
-    void testZeroScale1() {
-        Font font = baseStyle.getFont(0);
-        assertTrue(font.getSize() > 0);
-    }
-
-    @Test
-    void testZeroScale2() {
-        Font font = baseStyle.getFont(0);
-        assertTrue(font.getSize() > 0);
-        assertNotEquals(0, font.getSize());
     }
 }

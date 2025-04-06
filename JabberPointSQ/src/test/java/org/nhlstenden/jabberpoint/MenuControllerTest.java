@@ -26,115 +26,57 @@ class MenuControllerTest {
     }
 
     @Test
-    void testConstructorNotNull1() {
+    void testConstructorNotNull() {
         assertNotNull(menuController);
         assertTrue(menuController instanceof MenuBar);
     }
 
-    @Test
-    void testConstructorNotNull2() {
-        JFrame newFrame = new JFrame();
-        Presentation newPresentation = new Presentation();
-        MenuController controller = new MenuController(newFrame, newPresentation);
-        assertNotNull(controller);
-        assertTrue(controller instanceof MenuBar);
-    }
-
     @Test 
-    void testMenuClickOpen1() {
+    void testMenuClickOpen() {
         menuItem.setActionCommand("Open");
         ActionEvent event = new ActionEvent(menuItem, ActionEvent.ACTION_PERFORMED, "Open");
         assertDoesNotThrow(() -> menuController.createMenuItem("Open", e -> {}).getActionListeners()[0].actionPerformed(event));
     }
 
     @Test
-    void testMenuClickOpen2() {
-        JMenuItem item = new JMenuItem("Open");
-        ActionEvent event = new ActionEvent(item, ActionEvent.ACTION_PERFORMED, "Open");
-        assertDoesNotThrow(() -> menuController.createMenuItem("Open", e -> {}).getActionListeners()[0].actionPerformed(event));
-    }
-
-    @Test
-    void testMenuClickNew1() {
+    void testMenuClickNew() {
         menuItem.setActionCommand("New");
         ActionEvent event = new ActionEvent(menuItem, ActionEvent.ACTION_PERFORMED, "New");
         assertDoesNotThrow(() -> menuController.createMenuItem("New", e -> {}).getActionListeners()[0].actionPerformed(event));
     }
 
     @Test
-    void testMenuClickNew2() {
-        JMenuItem item = new JMenuItem("New");
-        ActionEvent event = new ActionEvent(item, ActionEvent.ACTION_PERFORMED, "New");
-        assertDoesNotThrow(() -> menuController.createMenuItem("New", e -> {}).getActionListeners()[0].actionPerformed(event));
-    }
-
-    @Test
-    void testMenuClickSave1() {
+    void testMenuClickSave() {
         menuItem.setActionCommand("Save");
         ActionEvent event = new ActionEvent(menuItem, ActionEvent.ACTION_PERFORMED, "Save");
         assertDoesNotThrow(() -> menuController.createMenuItem("Save", e -> {}).getActionListeners()[0].actionPerformed(event));
     }
 
     @Test
-    void testMenuClickSave2() {
-        JMenuItem item = new JMenuItem("Save");
-        ActionEvent event = new ActionEvent(item, ActionEvent.ACTION_PERFORMED, "Save");
-        assertDoesNotThrow(() -> menuController.createMenuItem("Save", e -> {}).getActionListeners()[0].actionPerformed(event));
-    }
-
-    @Test
-    void testMenuClickExit1() {
+    void testMenuClickExit() {
         menuItem.setActionCommand("Exit");
         ActionEvent event = new ActionEvent(menuItem, ActionEvent.ACTION_PERFORMED, "Exit");
         assertDoesNotThrow(() -> menuController.createMenuItem("Exit", e -> {}).getActionListeners()[0].actionPerformed(event));
     }
 
     @Test
-    void testMenuClickExit2() {
-        JMenuItem item = new JMenuItem("Exit");
-        ActionEvent event = new ActionEvent(item, ActionEvent.ACTION_PERFORMED, "Exit");
-        assertDoesNotThrow(() -> menuController.createMenuItem("Exit", e -> {}).getActionListeners()[0].actionPerformed(event));
-    }
-
-    @Test
-    void testMenuClickNext1() {
+    void testMenuClickNext() {
         menuItem.setActionCommand("Next");
         ActionEvent event = new ActionEvent(menuItem, ActionEvent.ACTION_PERFORMED, "Next");
         assertDoesNotThrow(() -> menuController.createMenuItem("Next", e -> {}).getActionListeners()[0].actionPerformed(event));
     }
 
     @Test
-    void testMenuClickNext2() {
-        JMenuItem item = new JMenuItem("Next");
-        ActionEvent event = new ActionEvent(item, ActionEvent.ACTION_PERFORMED, "Next");
-        assertDoesNotThrow(() -> menuController.createMenuItem("Next", e -> {}).getActionListeners()[0].actionPerformed(event));
-    }
-
-    @Test
-    void testMenuClickPrev1() {
+    void testMenuClickPrev() {
         menuItem.setActionCommand("Prev");
         ActionEvent event = new ActionEvent(menuItem, ActionEvent.ACTION_PERFORMED, "Prev");
         assertDoesNotThrow(() -> menuController.createMenuItem("Prev", e -> {}).getActionListeners()[0].actionPerformed(event));
     }
 
     @Test
-    void testMenuClickPrev2() {
-        JMenuItem item = new JMenuItem("Prev");
-        ActionEvent event = new ActionEvent(item, ActionEvent.ACTION_PERFORMED, "Prev");
-        assertDoesNotThrow(() -> menuController.createMenuItem("Prev", e -> {}).getActionListeners()[0].actionPerformed(event));
-    }
-
-    @Test
-    void testMenuClickGoto1() {
+    void testMenuClickGoto() {
         menuItem.setActionCommand("Goto");
         ActionEvent event = new ActionEvent(menuItem, ActionEvent.ACTION_PERFORMED, "Goto");
-        assertDoesNotThrow(() -> menuController.createMenuItem("Goto", e -> {}).getActionListeners()[0].actionPerformed(event));
-    }
-
-    @Test
-    void testMenuClickGoto2() {
-        JMenuItem item = new JMenuItem("Goto");
-        ActionEvent event = new ActionEvent(item, ActionEvent.ACTION_PERFORMED, "Goto");
         assertDoesNotThrow(() -> menuController.createMenuItem("Goto", e -> {}).getActionListeners()[0].actionPerformed(event));
     }
 }

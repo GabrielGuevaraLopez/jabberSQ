@@ -22,30 +22,17 @@ class LeadingStyleDecoratorTest {
     }
 
     @Test
-    void testGetLeading() {
-        LeadingStyleDecorator decorator = new LeadingStyleDecorator(baseStyle, 15);
-        assertEquals(15, decorator.getLeading());
-    }
-
-    @Test
-    void testMultipleLeadingValues() {
+    void testLeadingValues() {
         LeadingStyleDecorator decorator1 = new LeadingStyleDecorator(baseStyle, 15);
         LeadingStyleDecorator decorator2 = new LeadingStyleDecorator(baseStyle, 20);
-        
         assertEquals(15, decorator1.getLeading());
         assertEquals(20, decorator2.getLeading());
-    }
-
-    @Test
-    void testZeroLeading() {
-        LeadingStyleDecorator decorator = new LeadingStyleDecorator(baseStyle, 0);
-        assertEquals(0, decorator.getLeading());
-    }
-
-    @Test
-    void testNegativeLeading() {
-        LeadingStyleDecorator decorator = new LeadingStyleDecorator(baseStyle, -5);
-        assertEquals(-5, decorator.getLeading());
+        
+        LeadingStyleDecorator zeroDecorator = new LeadingStyleDecorator(baseStyle, 0);
+        assertEquals(0, zeroDecorator.getLeading());
+        
+        LeadingStyleDecorator negativeDecorator = new LeadingStyleDecorator(baseStyle, -5);
+        assertEquals(-5, negativeDecorator.getLeading());
     }
 
     @Test

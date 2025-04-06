@@ -19,69 +19,35 @@ class KeyControllerTest {
     }
 
     @Test
-    void testConstructorNotNull1() {
+    void testConstructorNotNull() {
         assertNotNull(keyController);
     }
 
     @Test
-    void testConstructorNotNull2() {
-        KeyController controller = new KeyController(new Presentation());
-        assertNotNull(controller);
-    }
-
-    @Test
-    void testKeyPressPageDown1() {
+    void testKeyPressPageDown() {
         KeyEvent event = new KeyEvent(frame, KeyEvent.KEY_PRESSED, 
             System.currentTimeMillis(), 0, KeyEvent.VK_PAGE_DOWN, 'P');
         assertDoesNotThrow(() -> keyController.keyPressed(event));
     }
 
     @Test
-    void testKeyPressPageDown2() {
-        KeyEvent event = new KeyEvent(frame, KeyEvent.KEY_PRESSED, 
-            System.currentTimeMillis(), 0, KeyEvent.VK_PAGE_DOWN, KeyEvent.CHAR_UNDEFINED);
-        assertDoesNotThrow(() -> keyController.keyPressed(event));
-    }
-
-    @Test
-    void testKeyPressPageUp1() {
+    void testKeyPressPageUp() {
         KeyEvent event = new KeyEvent(frame, KeyEvent.KEY_PRESSED, 
             System.currentTimeMillis(), 0, KeyEvent.VK_PAGE_UP, 'P');
         assertDoesNotThrow(() -> keyController.keyPressed(event));
     }
 
     @Test
-    void testKeyPressPageUp2() {
-        KeyEvent event = new KeyEvent(frame, KeyEvent.KEY_PRESSED, 
-            System.currentTimeMillis(), 0, KeyEvent.VK_PAGE_UP, KeyEvent.CHAR_UNDEFINED);
-        assertDoesNotThrow(() -> keyController.keyPressed(event));
-    }
-
-    @Test
-    void testKeyReleased1() {
+    void testKeyReleased() {
         KeyEvent event = new KeyEvent(frame, KeyEvent.KEY_RELEASED, 
             System.currentTimeMillis(), 0, KeyEvent.VK_PAGE_DOWN, 'P');
         assertDoesNotThrow(() -> keyController.keyReleased(event));
     }
 
     @Test
-    void testKeyReleased2() {
-        KeyEvent event = new KeyEvent(frame, KeyEvent.KEY_RELEASED, 
-            System.currentTimeMillis(), 0, KeyEvent.VK_PAGE_UP, 'P');
-        assertDoesNotThrow(() -> keyController.keyReleased(event));
-    }
-
-    @Test
-    void testKeyTyped1() {
+    void testKeyTyped() {
         KeyEvent event = new KeyEvent(frame, KeyEvent.KEY_TYPED, 
             System.currentTimeMillis(), 0, KeyEvent.VK_UNDEFINED, 'q');
-        assertDoesNotThrow(() -> keyController.keyTyped(event));
-    }
-
-    @Test
-    void testKeyTyped2() {
-        KeyEvent event = new KeyEvent(frame, KeyEvent.KEY_TYPED, 
-            System.currentTimeMillis(), 0, KeyEvent.VK_UNDEFINED, ' ');
         assertDoesNotThrow(() -> keyController.keyTyped(event));
     }
 }
