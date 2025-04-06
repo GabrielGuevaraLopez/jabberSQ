@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Style.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JabberPointSQ</a> &gt; <a href="index.source.html" class="el_package">org.nhlstenden.jabberpoint.decorator</a> &gt; <span class="el_source">Style.java</span></div><h1>Style.java</h1><pre class="source lang-java linenums">package org.nhlstenden.jabberpoint.decorator;
+
+import java.awt.Color;
+import java.awt.Font;
+
+public class Style implements StyleComponent {
+    private static final String FONTNAME = &quot;Helvetica&quot;;
+
+    public int indent;
+    public Color color;
+    public Font font;
+    public int fontSize;
+    public int leading;
+
+<span class="fc" id="L15">    public Style(int indent, Color color, int points, int leading) {</span>
+<span class="fc" id="L16">        this.indent = indent;</span>
+<span class="fc" id="L17">        this.color = color;</span>
+<span class="fc" id="L18">        this.fontSize = points;</span>
+<span class="fc" id="L19">        this.font = new Font(FONTNAME, Font.BOLD, points);</span>
+<span class="fc" id="L20">        this.leading = leading;</span>
+<span class="fc" id="L21">    }</span>
+
+    public static Style getStyle(int level) {
+<span class="pc bpc" id="L24" title="4 of 5 branches missed.">        switch (level) {</span>
+            case 0:
+<span class="fc" id="L26">                return new Style(0, Color.red, 48, 20);</span>
+            case 1:
+<span class="nc" id="L28">                return new Style(20, Color.blue, 40, 18);</span>
+            case 2:
+<span class="nc" id="L30">                return new Style(40, Color.black, 36, 16);</span>
+            case 3:
+<span class="nc" id="L32">                return new Style(60, Color.darkGray, 30, 14);</span>
+            default:
+<span class="nc" id="L34">                return new Style(80, Color.gray, 24, 12);</span>
+        }
+    }
+
+    @Override
+    public void createStyles() {
+<span class="fc" id="L40">        System.out.println(&quot;Base style created: &quot; + this.toString());</span>
+<span class="fc" id="L41">    }</span>
+
+    @Override
+    public Color getColor() {
+<span class="fc" id="L45">        return color;</span>
+    }
+
+    @Override
+    public Font getFont(float scale) {
+<span class="fc" id="L50">        float effectiveScale = Math.max(0.1f, scale);</span>
+<span class="fc" id="L51">        return font.deriveFont(fontSize * effectiveScale);</span>
+    }
+
+    @Override
+    public int getIndent() {
+<span class="fc" id="L56">        return indent;</span>
+    }
+
+    @Override
+    public int getLeading() {
+<span class="fc" id="L61">        return leading;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L66">        return &quot;[&quot; + indent + &quot;, &quot; + color + &quot;; &quot; + fontSize + &quot; on &quot; + leading + &quot;]&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MenuController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JabberPointSQ</a> &gt; <a href="index.source.html" class="el_package">org.nhlstenden.jabberpoint</a> &gt; <span class="el_source">MenuController.java</span></div><h1>MenuController.java</h1><pre class="source lang-java linenums">package org.nhlstenden.jabberpoint;
+
+import org.nhlstenden.jabberpoint.command.*;
+
+import java.awt.*;
+import java.awt.event.ActionListener;
+
+/** &lt;p&gt;The controller for the menu&lt;/p&gt;
+ * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+ * @version 1.1 2002/12/17 Gert Florijn
+ * @version 1.2 2003/11/19 Sylvia Stuurman
+ * @version 1.3 2004/08/17 Sylvia Stuurman
+ * @version 1.4 2007/07/16 Sylvia Stuurman
+ * @version 1.5 2010/03/03 Sylvia Stuurman
+ * @version 1.6 2014/05/16 Sylvia Stuurman
+ */
+
+public class MenuController extends MenuBar {
+
+    private final Frame parent;
+    private final Presentation presentation;
+
+    private static final long serialVersionUID = 227L;
+
+<span class="fc" id="L25">    public MenuController(Frame frame, Presentation presentation) {</span>
+<span class="fc" id="L26">        this.parent = frame;</span>
+<span class="fc" id="L27">        this.presentation = presentation;</span>
+
+<span class="fc" id="L29">        Exit exitCommand = new Exit(this.presentation);</span>
+<span class="fc" id="L30">        GoTo goToCommand = new GoTo(this.presentation);</span>
+<span class="fc" id="L31">        Open openFileCommand = new Open(this.presentation);</span>
+<span class="fc" id="L32">        Save saveFileCommand = new Save(this.presentation);</span>
+<span class="fc" id="L33">        NewFile newFileCommand = new NewFile(this.presentation);</span>
+
+<span class="fc" id="L35">        Menu fileMenu = new Menu(&quot;File&quot;);</span>
+<span class="pc" id="L36">        fileMenu.add(this.createMenuItem(&quot;Open&quot;, e -&gt; openFileCommand.execute(), 'O'));</span>
+<span class="pc" id="L37">        fileMenu.add(this.createMenuItem(&quot;New&quot;, e -&gt; newFileCommand.execute(), 'N'));</span>
+<span class="pc" id="L38">        fileMenu.add(this.createMenuItem(&quot;Save&quot;, e -&gt; saveFileCommand.execute(), 'S'));</span>
+<span class="fc" id="L39">        fileMenu.addSeparator();</span>
+<span class="pc" id="L40">        fileMenu.add(this.createMenuItem(&quot;Exit&quot;, e -&gt; exitCommand.execute()));</span>
+<span class="fc" id="L41">        this.add(fileMenu);</span>
+
+<span class="fc" id="L43">        Menu viewMenu = new Menu(&quot;View&quot;);</span>
+<span class="pc" id="L44">        viewMenu.add(this.createMenuItem(&quot;Next slide&quot;, e -&gt; this.presentation.nextSlide()));</span>
+<span class="pc" id="L45">        viewMenu.add(this.createMenuItem(&quot;Previous slide&quot;, e -&gt; this.presentation.prevSlide()));</span>
+<span class="pc" id="L46">        viewMenu.add(this.createMenuItem(&quot;Go to...&quot;, e -&gt; goToCommand.execute(), 'G'));</span>
+<span class="fc" id="L47">        this.add(viewMenu);</span>
+
+<span class="fc" id="L49">        Menu helpMenu = new Menu(&quot;Help&quot;);</span>
+<span class="pc" id="L50">        helpMenu.add(this.createMenuItem(&quot;About&quot;, e -&gt; AboutBox.show(MenuController.this.parent), 'A'));</span>
+<span class="fc" id="L51">        this.setHelpMenu(helpMenu);</span>
+<span class="fc" id="L52">    }</span>
+
+    public MenuItem createMenuItem(String name, ActionListener action) {
+        MenuItem menuItem;
+<span class="fc" id="L56">        menuItem = new MenuItem(name);</span>
+<span class="fc" id="L57">        menuItem.addActionListener(action);</span>
+<span class="fc" id="L58">        return menuItem;</span>
+    }
+
+    public MenuItem createMenuItem(String name, ActionListener action, char shortcutKey) {
+        MenuItem menuItem;
+<span class="fc" id="L63">        menuItem = new MenuItem(name, new MenuShortcut(shortcutKey));</span>
+<span class="fc" id="L64">        menuItem.addActionListener(action);</span>
+<span class="fc" id="L65">        return menuItem;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
