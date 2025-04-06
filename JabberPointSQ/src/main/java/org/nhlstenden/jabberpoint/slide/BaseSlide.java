@@ -6,8 +6,9 @@ import java.awt.*;
 import java.awt.image.ImageObserver;
 
 public interface BaseSlide {
-    public abstract void draw(Graphics graphics, Rectangle rectangle, ImageObserver imageObserver);
+  public abstract void draw(Graphics graphics, Rectangle rectangle, ImageObserver imageObserver);
 
-    public abstract void append(int level, String message);
-    public abstract void append(SlideItem anItem);
+  public abstract void append(int level, String message);
+
+  public abstract void append(SlideItem anItem);
 }

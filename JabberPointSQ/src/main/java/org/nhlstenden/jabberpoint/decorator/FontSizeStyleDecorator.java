@@ -7,7 +7,7 @@ public class FontSizeStyleDecorator extends StyleWrapper {
 
   public FontSizeStyleDecorator(StyleComponent wrappee, int newFontSize) {
     super(wrappee);
-    this.newFontSize = Math.abs(newFontSize);  // if font is negative, flip it to positive
+    this.newFontSize = Math.abs(newFontSize); // if font is negative, flip it to positive
   }
 
   @Override

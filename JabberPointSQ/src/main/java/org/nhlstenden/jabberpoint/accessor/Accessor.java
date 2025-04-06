@@ -5,12 +5,14 @@ import org.nhlstenden.jabberpoint.Presentation;
 import java.io.IOException;
 
 /**
- * <p>Een Accessor maakt het mogelijk om gegevens voor een presentatie
- * te lezen of te schrijven.</p>
- * <p>Niet-abstracte subklassen moeten de load en de save methode implementeren.</p>
- * * <p>An Accessor makes it possible to read and write information 
- * for a presentation.</p>
- * <p>Non-abstract subclasses need to implement the load and save method.</p>
+ * Een Accessor maakt het mogelijk om gegevens voor een presentatie te lezen of te schrijven.
+ *
+ * <p>Niet-abstracte subklassen moeten de load en de save methode implementeren. *
+ *
+ * <p>An Accessor makes it possible to read and write information for a presentation.
+ *
+ * <p>Non-abstract subclasses need to implement the load and save method.
+ *
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
  * @version 1.2 2003/11/19 Sylvia Stuurman
@@ -19,20 +21,17 @@ import java.io.IOException;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-
 public abstract class Accessor {
-    public static final String DEMO_NAME = "Demonstration presentation";
-    public static final String DEFAULT_EXTENSION = ".xml";
+  public static final String DEMO_NAME = "Demonstration presentation";
+  public static final String DEFAULT_EXTENSION = ".xml";
 
-    public static Accessor getDemoAccessor() {
-        return new DemoPresentation();
-    }
+  public static Accessor getDemoAccessor() {
+    return new DemoPresentation();
+  }
 
-    public Accessor() {
-    }
+  public Accessor() {}
 
-    abstract public void loadFile(Presentation p, String fn) throws IOException;
+  public abstract void loadFile(Presentation p, String fn) throws IOException;
 
-    abstract public void saveFile(Presentation p, String fn) throws IOException;
-
+  public abstract void saveFile(Presentation p, String fn) throws IOException;
 }

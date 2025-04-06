@@ -1,14 +1,13 @@
 package org.nhlstenden.jabberpoint.command;
 
-public class Next extends Command{
+public class Next extends Command {
 
-    public Next(PresentationReceiver presentationReceiver)
-    {
-        super(presentationReceiver);
-    }
+  public Next(PresentationReceiver presentationReceiver) {
+    super(presentationReceiver);
+  }
 
-    @Override
-    public void execute(){
-        presentationReceiver.next();
-    }
+  @Override
+  public void execute() {
+    presentationReceiver.next();
+  }
 }

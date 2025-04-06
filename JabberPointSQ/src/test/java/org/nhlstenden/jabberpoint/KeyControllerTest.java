@@ -9,77 +9,86 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 
 class KeyControllerTest {
-    private KeyController keyController;
-    private Presentation presentation;
-    private JFrame frame;
+  private KeyController keyController;
+  private Presentation presentation;
+  private JFrame frame;
 
-    @BeforeEach
-    void setUp() {
-        if (GraphicsEnvironment.isHeadless()) {
-            System.out.println("Headless environment detected. Skipping test.");
-            return;
-        }
-
-        presentation = new Presentation();
-        keyController = new KeyController(presentation);
-        frame = new JFrame();
+  @BeforeEach
+  void setUp() {
+    if (GraphicsEnvironment.isHeadless()) {
+      System.out.println("Headless environment detected. Skipping test.");
+      return;
     }
 
-    @Test
-    void testConstructorNotNull() {
-        if (GraphicsEnvironment.isHeadless()) {
-            System.out.println("Headless environment detected. Skipping test.");
-            return;
-        }
+    presentation = new Presentation();
+    keyController = new KeyController(presentation);
+    frame = new JFrame();
+  }
 
-        assertNotNull(keyController);
+  @Test
+  void testConstructorNotNull() {
+    if (GraphicsEnvironment.isHeadless()) {
+      System.out.println("Headless environment detected. Skipping test.");
+      return;
     }
 
-    @Test
-    void testKeyPressPageDown() {
-        if (GraphicsEnvironment.isHeadless()) {
-            System.out.println("Headless environment detected. Skipping test.");
-            return;
-        }
+    assertNotNull(keyController);
+  }
 
-        KeyEvent event = new KeyEvent(frame, KeyEvent.KEY_PRESSED, 
-            System.currentTimeMillis(), 0, KeyEvent.VK_PAGE_DOWN, 'P');
-        assertDoesNotThrow(() -> keyController.keyPressed(event));
+  @Test
+  void testKeyPressPageDown() {
+    if (GraphicsEnvironment.isHeadless()) {
+      System.out.println("Headless environment detected. Skipping test.");
+      return;
     }
 
-    @Test
-    void testKeyPressPageUp() {
-        if (GraphicsEnvironment.isHeadless()) {
-            System.out.println("Headless environment detected. Skipping test.");
-            return;
-        }
+    KeyEvent event =
+        new KeyEvent(
+            frame, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_PAGE_DOWN, 'P');
+    assertDoesNotThrow(() -> keyController.keyPressed(event));
+  }
 
-        KeyEvent event = new KeyEvent(frame, KeyEvent.KEY_PRESSED, 
-            System.currentTimeMillis(), 0, KeyEvent.VK_PAGE_UP, 'P');
-        assertDoesNotThrow(() -> keyController.keyPressed(event));
+  @Test
+  void testKeyPressPageUp() {
+    if (GraphicsEnvironment.isHeadless()) {
+      System.out.println("Headless environment detected. Skipping test.");
+      return;
     }
 
-    @Test
-    void testKeyReleased() {
-        if (GraphicsEnvironment.isHeadless()) {
-            System.out.println("Headless environment detected. Skipping test.");
-            return;
-        }
+    KeyEvent event =
+        new KeyEvent(
+            frame, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 0, KeyEvent.VK_PAGE_UP, 'P');
+    assertDoesNotThrow(() -> keyController.keyPressed(event));
+  }
 
-        KeyEvent event = new KeyEvent(frame, KeyEvent.KEY_RELEASED, 
-            System.currentTimeMillis(), 0, KeyEvent.VK_PAGE_DOWN, 'P');
-        assertDoesNotThrow(() -> keyController.keyReleased(event));
+  @Test
+  void testKeyReleased() {
+    if (GraphicsEnvironment.isHeadless()) {
+      System.out.println("Headless environment detected. Skipping test.");
+      return;
     }
 
-    @Test
-    void testKeyTyped() {
-        if (GraphicsEnvironment.isHeadless()) {
-            System.out.println("Headless environment detected. Skipping test.");
-            return;
-        }
+    KeyEvent event =
+        new KeyEvent(
+            frame,
+            KeyEvent.KEY_RELEASED,
+            System.currentTimeMillis(),
+            0,
+            KeyEvent.VK_PAGE_DOWN,
+            'P');
+    assertDoesNotThrow(() -> keyController.keyReleased(event));
+  }
 
-        KeyEvent event = new KeyEvent(frame, KeyEvent.KEY_TYPED, 
-            System.currentTimeMillis(), 0, KeyEvent.VK_UNDEFINED, 'q');
-        assertDoesNotThrow(() -> keyController.keyTyped(event));
+  @Test
+  void testKeyTyped() {
+    if (GraphicsEnvironment.isHeadless()) {
+      System.out.println("Headless environment detected. Skipping test.");
+      return;
     }
+
+    KeyEvent event =
+        new KeyEvent(
+            frame, KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, KeyEvent.VK_UNDEFINED, 'q');
+    assertDoesNotThrow(() -> keyController.keyTyped(event));
+  }
 }

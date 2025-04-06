@@ -9,56 +9,56 @@ import java.awt.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GoToTest {
-    private GoTo goToCommand;
-    private Presentation presentation;
+  private GoTo goToCommand;
+  private Presentation presentation;
 
-    @BeforeEach
-    void setUp() {
-        presentation = new Presentation();
-        goToCommand = new GoTo(presentation);
+  @BeforeEach
+  void setUp() {
+    presentation = new Presentation();
+    goToCommand = new GoTo(presentation);
+  }
+
+  @Test
+  void testConstructor() {
+    GoTo command = new GoTo(presentation);
+    assertNotNull(command);
+
+    Presentation pres = new Presentation();
+    GoTo command2 = new GoTo(pres);
+    assertNotNull(pres);
+    assertNotNull(command2);
+  }
+
+  @Test
+  void testGoToValidSlide() {
+    if (GraphicsEnvironment.isHeadless()) {
+      System.out.println("Headless environment detected. Skipping test.");
+      return;
     }
 
-    @Test
-    void testConstructor() {
-        GoTo command = new GoTo(presentation);
-        assertNotNull(command);
-        
-        Presentation pres = new Presentation();
-        GoTo command2 = new GoTo(pres);
-        assertNotNull(pres);
-        assertNotNull(command2);
+    presentation.setSlideNumber(0);
+    assertDoesNotThrow(() -> goToCommand.execute());
+  }
+
+  @Test
+  void testGoToBoundaryMin() {
+    if (GraphicsEnvironment.isHeadless()) {
+      System.out.println("Headless environment detected. Skipping test.");
+      return;
     }
 
-    @Test
-    void testGoToValidSlide() {
-        if (GraphicsEnvironment.isHeadless()) {
-            System.out.println("Headless environment detected. Skipping test.");
-            return;
-        }
+    presentation.setSlideNumber(-1);
+    assertDoesNotThrow(() -> goToCommand.execute());
+  }
 
-        presentation.setSlideNumber(0);
-        assertDoesNotThrow(() -> goToCommand.execute());
+  @Test
+  void testGoToBoundaryMax() {
+    if (GraphicsEnvironment.isHeadless()) {
+      System.out.println("Headless environment detected. Skipping test.");
+      return;
     }
 
-    @Test
-    void testGoToBoundaryMin() {
-        if (GraphicsEnvironment.isHeadless()) {
-            System.out.println("Headless environment detected. Skipping test.");
-            return;
-        }
-
-        presentation.setSlideNumber(-1);
-        assertDoesNotThrow(() -> goToCommand.execute());
-    }
-
-    @Test
-    void testGoToBoundaryMax() {
-        if (GraphicsEnvironment.isHeadless()) {
-            System.out.println("Headless environment detected. Skipping test.");
-            return;
-        }
-
-        presentation.setSlideNumber(Integer.MAX_VALUE);
-        assertDoesNotThrow(() -> goToCommand.execute());
-    }
+    presentation.setSlideNumber(Integer.MAX_VALUE);
+    assertDoesNotThrow(() -> goToCommand.execute());
+  }
 }

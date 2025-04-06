@@ -21,29 +21,28 @@ import java.util.Map;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-
 public class KeyController extends KeyAdapter {
-    private final Map<Integer, Command> commandMap = new HashMap<>();
+  private final Map<Integer, Command> commandMap = new HashMap<>();
 
-    public KeyController(Presentation presentation) {
-        commandMap.put(KeyEvent.VK_PAGE_DOWN, new Next(presentation));
-        commandMap.put(KeyEvent.VK_DOWN, new Next(presentation));
-        commandMap.put(KeyEvent.VK_ENTER, new Next(presentation));
-        commandMap.put((int) '+', new Next(presentation));
+  public KeyController(Presentation presentation) {
+    commandMap.put(KeyEvent.VK_PAGE_DOWN, new Next(presentation));
+    commandMap.put(KeyEvent.VK_DOWN, new Next(presentation));
+    commandMap.put(KeyEvent.VK_ENTER, new Next(presentation));
+    commandMap.put((int) '+', new Next(presentation));
 
-        commandMap.put(KeyEvent.VK_PAGE_UP, new Previous(presentation));
-        commandMap.put(KeyEvent.VK_UP, new Previous(presentation));
-        commandMap.put((int) '-', new Previous(presentation));
+    commandMap.put(KeyEvent.VK_PAGE_UP, new Previous(presentation));
+    commandMap.put(KeyEvent.VK_UP, new Previous(presentation));
+    commandMap.put((int) '-', new Previous(presentation));
 
-        commandMap.put((int) 'q', new Exit(presentation));
-        commandMap.put((int) 'Q', new Exit(presentation));
+    commandMap.put((int) 'q', new Exit(presentation));
+    commandMap.put((int) 'Q', new Exit(presentation));
+  }
+
+  @Override
+  public void keyPressed(KeyEvent keyEvent) {
+    Command command = commandMap.get(keyEvent.getKeyCode());
+    if (command != null) {
+      command.execute();
     }
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-        Command command = commandMap.get(keyEvent.getKeyCode());
-        if (command != null) {
-            command.execute();
-        }
-    }
+  }
 }

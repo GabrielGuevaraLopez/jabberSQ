@@ -7,24 +7,24 @@ import java.awt.GraphicsEnvironment;
 
 class AboutBoxTest {
 
-    @Test
-    void testShowWithNullFrame() {
-        if (GraphicsEnvironment.isHeadless()) {
-            System.out.println("Headless environment detected. Skipping test.");
-            return;
-        }
-
-        assertDoesNotThrow(() -> AboutBox.show(null));
+  @Test
+  void testShowWithNullFrame() {
+    if (GraphicsEnvironment.isHeadless()) {
+      System.out.println("Headless environment detected. Skipping test.");
+      return;
     }
 
-    @Test
-    void testShowWithValidFrame() {
-        if (GraphicsEnvironment.isHeadless()) {
-            System.out.println("Headless environment detected. Skipping test.");
-            return;
-        }
+    assertDoesNotThrow(() -> AboutBox.show(null));
+  }
 
-        Frame frame = new Frame();
-        assertDoesNotThrow(() -> AboutBox.show(frame));
+  @Test
+  void testShowWithValidFrame() {
+    if (GraphicsEnvironment.isHeadless()) {
+      System.out.println("Headless environment detected. Skipping test.");
+      return;
     }
+
+    Frame frame = new Frame();
+    assertDoesNotThrow(() -> AboutBox.show(frame));
+  }
 }
